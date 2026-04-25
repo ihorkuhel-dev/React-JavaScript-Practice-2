@@ -31,10 +31,12 @@ export const apiClient = async <T>(endpoint: string, options: FetchOptions = {},
         headers: configHeaders,
     }
 
-    if (body && configHeaders.get('Content-Type') === 'application/json') {
-        config.body = JSON.stringify(body)
-    } else if (body) {
-        config.body = body as BodyInit
+    if (body) {
+        if (configHeaders.get('Content-Type')?.includes('application/json')) {
+            config.body = JSON.stringify(body);
+        } else {
+            config.body = body as BodyInit;
+        }
     }
 
     const response = await fetch(url.toString(), config)

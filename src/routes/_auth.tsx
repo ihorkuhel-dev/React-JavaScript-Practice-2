@@ -1,16 +1,26 @@
-import {createFileRoute, Outlet} from '@tanstack/react-router'
+import { createFileRoute, Outlet, redirect } from '@tanstack/react-router'
+import { getAccessToken } from '@/shared/lib/cookies'
 
 export const Route = createFileRoute('/_auth')({
-  component: AuthLayout,
+    beforeLoad: () => {
+        const token = getAccessToken()
+        console.log(token)
+
+        if (token) {
+            throw redirect({
+                to: '/',
+            })
+        }
+    },
+    component: AuthLayout,
 })
 
 function AuthLayout() {
-  return(
-      <div className="flex min-h-screen items-center justify-center bg-muted/50">
-          <div className="w-full max-w-md p-8 bg-background shadow border rounded-lg">
-              <Outlet />
-          </div>
-      </div>
-  )
-
+    return (
+        <div className="flex min-h-screen items-center justify-center p-4 bg-secondary-background">
+            <div className="w-full max-w-md">
+                <Outlet />
+            </div>
+        </div>
+    )
 }
