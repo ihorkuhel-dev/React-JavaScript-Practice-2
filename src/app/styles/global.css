@@ -1,1 +1,102 @@
 @import "tailwindcss";
+
+@theme {
+    --color-accent: var(--accent-color);
+    --color-accent-lighter: var(--accent-color-lighter);
+
+    --color-green: var(--green);
+    --color-green-lighter: var(--green-lighter);
+    --color-green-darker: var(--green-darker);
+
+    --color-orange: var(--orange);
+    --color-orange-lighter: var(--orange-lighter);
+    --color-orange-darker: var(--orange-darker);
+
+    --color-red: var(--red);
+    --color-red-lighter: var(--red-lighter);
+    --color-red-darker: var(--red-darker);
+
+    --color-white: var(--white);
+    --color-black: var(--black);
+
+    --color-grey: var(--grey);
+    --color-grey-light: var(--grey-light);
+    --color-grey-lighter: var(--grey-lighter);
+    --color-grey-dark: var(--grey-dark);
+    --color-grey-darker: var(--grey-darker);
+
+    --color-aquamarine: var(--aquamarine);
+    --color-aquamarine-lighter: var(--aquamarine-lighter);
+}
+
+@layer base {
+    :root {
+        --accent-color: #3874FF;
+        --accent-color-lighter: #E5EDFF;
+
+        --green: #ACE4A2;
+        --green-lighter: #DBF9D7;
+        --green-darker: #53D633;
+
+        --orange: #FADD9A;
+        --orange-lighter: #F8EDD4;
+        --orange-darker: #D6883A;
+
+        --red: #FAA69A;
+        --red-lighter: #F8D9D6;
+        --red-darker: #D63F3A;
+
+        --white: #FFFFFF;
+        --black: #141828;
+
+        --grey: #56627D;
+        --grey-light: #f5f7fa;
+        --grey-lighter: #E0E3EB;
+        --grey-dark: #E3E6ED;
+        --grey-darker: #31374A;
+
+        --aquamarine: #25A7EF;
+        --aquamarine-lighter: #C7EBFF;
+
+        --primary-text: var(--black);
+        --secondary-text: var(--grey);
+        --accent-text: var(--accent-color);
+
+        --primary-background: var(--white);
+        --secondary-background: var(--grey-light);
+
+        --border-color: var(--grey-lighter);
+
+        --background: var(--primary-background);
+        --foreground: var(--primary-text);
+
+        --primary: var(--accent-color);
+        --primary-foreground: var(--white);
+
+        --secondary: var(--secondary-background);
+        --secondary-foreground: var(--primary-text);
+
+        --muted: var(--grey-light);
+        --muted-foreground: var(--secondary-text);
+
+        --accent: var(--accent-color-lighter);
+        --accent-foreground: var(--accent-color);
+
+        --destructive: var(--red-darker);
+        --destructive-foreground: var(--white);
+
+        --border: var(--border-color);
+        --input: var(--border-color);
+        --ring: var(--accent-color);
+
+        --radius: 0.5rem;
+    }
+
+    .dark {
+    }
+
+    body {
+        background-color: var(--primary-background);
+        color: var(--primary-text);
+    }
+}
