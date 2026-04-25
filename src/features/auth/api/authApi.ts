@@ -11,7 +11,7 @@ export interface User {
   lastName: string;
   gender: string;
   image: string;
-  token?: string;
+  accessToken?: string;
   refreshToken?: string;
 }
 
@@ -21,7 +21,7 @@ export interface LoginCredentials {
 }
 
 export interface RegisterCredentials {
-    email: string;
+    username: string;
     password: string;
 }
 
@@ -36,8 +36,8 @@ const loginFn = async (credentials: LoginCredentials): Promise<User> => {
     body: credentials,
   });
   
-  if (data.token && data.refreshToken) {
-    setTokens(data.token, data.refreshToken);
+  if (data.accessToken && data.refreshToken) {
+    setTokens(data.accessToken, data.refreshToken);
   }
   
   return data;

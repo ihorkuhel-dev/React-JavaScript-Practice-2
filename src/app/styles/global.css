@@ -1,34 +1,5 @@
 @import "tailwindcss";
 
-@theme {
-    --color-accent: var(--accent-color);
-    --color-accent-lighter: var(--accent-color-lighter);
-
-    --color-green: var(--green);
-    --color-green-lighter: var(--green-lighter);
-    --color-green-darker: var(--green-darker);
-
-    --color-orange: var(--orange);
-    --color-orange-lighter: var(--orange-lighter);
-    --color-orange-darker: var(--orange-darker);
-
-    --color-red: var(--red);
-    --color-red-lighter: var(--red-lighter);
-    --color-red-darker: var(--red-darker);
-
-    --color-white: var(--white);
-    --color-black: var(--black);
-
-    --color-grey: var(--grey);
-    --color-grey-light: var(--grey-light);
-    --color-grey-lighter: var(--grey-lighter);
-    --color-grey-dark: var(--grey-dark);
-    --color-grey-darker: var(--grey-darker);
-
-    --color-aquamarine: var(--aquamarine);
-    --color-aquamarine-lighter: var(--aquamarine-lighter);
-}
-
 @layer base {
     :root {
         --accent-color: #3874FF;
@@ -57,46 +28,39 @@
 
         --aquamarine: #25A7EF;
         --aquamarine-lighter: #C7EBFF;
-
-        --primary-text: var(--black);
-        --secondary-text: var(--grey);
-        --accent-text: var(--accent-color);
-
-        --primary-background: var(--white);
-        --secondary-background: var(--grey-light);
-
-        --border-color: var(--grey-lighter);
-
-        --background: var(--primary-background);
-        --foreground: var(--primary-text);
-
-        --primary: var(--accent-color);
-        --primary-foreground: var(--white);
-
-        --secondary: var(--secondary-background);
-        --secondary-foreground: var(--primary-text);
-
-        --muted: var(--grey-light);
-        --muted-foreground: var(--secondary-text);
-
-        --accent: var(--accent-color-lighter);
-        --accent-foreground: var(--accent-color);
-
-        --destructive: var(--red-darker);
-        --destructive-foreground: var(--white);
-
-        --border: var(--border-color);
-        --input: var(--border-color);
-        --ring: var(--accent-color);
-
-        --radius: 0.5rem;
-    }
-
-    .dark {
     }
 
     body {
-        background-color: var(--primary-background);
-        color: var(--primary-text);
+        background-color: var(--white);
+        color: var(--black);
     }
+}
+
+@theme {
+    --color-accent: var(--accent-color);
+    --color-accent-lighter: var(--accent-color-lighter);
+
+    --color-mygreen: var(--green);
+    --color-mygreen-lighter: var(--green-lighter);
+    --color-mygreen-darker: var(--green-darker);
+
+    --color-myorange: var(--orange);
+    --color-myorange-lighter: var(--orange-lighter);
+    --color-myorange-darker: var(--orange-darker);
+
+    --color-myred: var(--red);
+    --color-myred-lighter: var(--red-lighter);
+    --color-myred-darker: var(--red-darker);
+
+    --color-mywhite: var(--white);
+    --color-myblack: var(--black);
+
+    --color-mygrey: var(--grey);
+    --color-mygrey-light: var(--grey-light);
+    --color-mygrey-lighter: var(--grey-lighter);
+    --color-mygrey-dark: var(--grey-dark);
+    --color-mygrey-darker: var(--grey-darker);
+
+    --color-myaquamarine: var(--aquamarine);
+    --color-myaquamarine-lighter: var(--aquamarine-lighter);
 }
