@@ -1,9 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
+import {MediacationPage} from "@/pages/medication-details/MedicationPage.tsx";
 
 export const Route = createFileRoute('/_main/medications/$id')({
-  component: RouteComponent,
+    component: MediacationPage,
 })
-
-function RouteComponent() {
-  return <div>Hello "/_main/medications/$id"!</div>
-}
