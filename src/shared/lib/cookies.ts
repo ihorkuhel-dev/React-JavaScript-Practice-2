@@ -7,7 +7,8 @@ const getCookie = (name: string): string | undefined => {
 };
 
 const setCookie = (name: string, value: string, days: number) => {
-    document.cookie = `${name}=${encodeURIComponent(value)};max-age=${days * 86400};path=/`;
+    const isSecure = location.protocol === 'https:' ? ';Secure' : '';
+    document.cookie = `${name}=${encodeURIComponent(value)};max-age=${days * 86400};path=/;SameSite=Strict${isSecure}`;
 };
 
 const deleteCookie = (name: string) => {

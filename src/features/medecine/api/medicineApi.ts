@@ -53,6 +53,7 @@ export const useProducts = (params?: GetProductsParams) => {
     queryKey: productsKeys.list(params || {}),
     queryFn: () => getProductsFn(params),
     placeholderData: keepPreviousData,
+    staleTime: 2 * 60 * 1000,
   });
 };
 
@@ -60,6 +61,7 @@ export const useProductById = (id: number | string, enabled: boolean = true) => 
   return useQuery({
     queryKey: productsKeys.detail(id),
     queryFn: () => getProductByIdFn(id),
-    enabled: !!id && enabled,
+    enabled: id != null && id !== '' && enabled,
+    staleTime: 5 * 60 * 1000,
   });
 };
