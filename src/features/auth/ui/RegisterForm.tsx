@@ -8,7 +8,7 @@ import {
     InputGroupInput
 } from "@/shared/ui/input-group";
 import { Button } from "@/shared/ui/button";
-import { useRegisterForm } from "../model/useRegisterForm";
+import { useRegisterForm } from "@/features/auth/lib/useRegisterForm";
 
 export function RegisterForm() {
     const {

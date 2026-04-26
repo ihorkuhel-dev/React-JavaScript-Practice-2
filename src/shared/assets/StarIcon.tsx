@@ -1,0 +1,5 @@
+import * as React from "react";
+
+export const StarIcon: React.FC<React.SVGProps<SVGSVGElement>> = ({color, width = 56, height = 56}) => (
+    <svg width={width} height={height} viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3.984" y="23.511" width="28.817" height="28.817" rx="6" transform="rotate(-7.836 3.984 23.511)" fill="#ace4a2"/><circle cx="35.027" cy="21.144" r="16.144" fill="#dbf9d7" stroke="#fff" stroke-width="2"/><path d="M34.575 11.842a.5.5 0 0 1 .908 0l2.33 5.054a.5.5 0 0 0 .396.287l5.526.655a.5.5 0 0 1 .281.864L39.93 22.48a.5.5 0 0 0-.15.465l1.084 5.458a.5.5 0 0 1-.735.534l-4.856-2.718a.5.5 0 0 0-.488 0l-4.857 2.718a.5.5 0 0 1-.734-.534l1.084-5.458a.5.5 0 0 0-.15-.465l-4.087-3.778a.5.5 0 0 1 .281-.864l5.527-.655a.5.5 0 0 0 .395-.287z" fill={color}/></svg>
+)
