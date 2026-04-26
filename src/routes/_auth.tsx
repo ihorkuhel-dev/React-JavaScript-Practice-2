@@ -4,13 +4,10 @@ import { getAccessToken } from '@/shared/lib/cookies'
 export const Route = createFileRoute('/_auth')({
     beforeLoad: () => {
         const token = getAccessToken()
-        console.log(token)
-
-        if (token) {
+        if (token)
             throw redirect({
                 to: '/',
             })
-        }
     },
     component: AuthLayout,
 })

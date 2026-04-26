@@ -16,7 +16,7 @@ export interface INavLink {
 export interface INavButton {
     id: string | number;
     description: string;
-    onClick: () => void;
+    onClick: string;
     icon:  FC<SVGProps<SVGSVGElement>>;
 }
 
@@ -51,17 +51,13 @@ export const NAV_BUTTON: INavButton[] = [
     {
         id: 'btn-theme',
         description: 'Change theme',
-        onClick: () => {
-            console.log('Тема изменена');
-        },
+        onClick: 'switch-theme',
         icon: SunIcon,
     },
     {
         id: 'btn-logout',
         description: 'Logout',
-        onClick: () => {
-            console.log('Пользователь вышел');
-        },
+        onClick: 'logout',
         icon: LogOutIcon,
     },
 ];

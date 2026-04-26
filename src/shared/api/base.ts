@@ -1,4 +1,6 @@
-import { getAccessToken, getRefreshToken, setTokens, removeTokens } from '../lib/cookies'
+import { getAccessToken, getRefreshToken, setTokens } from '../lib/cookies'
+import { appDispatch } from '../lib/dispatch'
+
 
 const API_URL = 'https://dummyjson.com'
 
@@ -51,8 +53,7 @@ export const apiClient = async <T>(endpoint: string, options: FetchOptions = {},
     if (response.status === 401 && !_isRetry) {
         const refreshToken = getRefreshToken()
         if (!refreshToken) {
-            removeTokens()
-            window.location.href = '/login'
+            appDispatch.dispatch('logout')
             throw new Error('Unauthorized')
         }
 
@@ -72,8 +73,7 @@ export const apiClient = async <T>(endpoint: string, options: FetchOptions = {},
 
             return await apiClient<T>(endpoint, options, true)
         } catch (error) {
-            removeTokens()
-            window.location.href = '/login'
+            appDispatch.dispatch('logout')
             console.log(error)
             throw new UnauthorizedError()
         }

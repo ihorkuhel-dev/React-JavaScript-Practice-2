@@ -9,6 +9,7 @@ import {Link} from "@tanstack/react-router";
 import {NAV_BUTTON, NAV_LINK} from "@/shared/config/header.ts";
 import {Button} from "@/shared/ui/button.tsx";
 import "./Header.scss"
+import { appDispatch } from '@/shared/lib/dispatch'
 
 export function Header() {
     return (
@@ -23,7 +24,7 @@ export function Header() {
                             <NavigationMenuItem key={link.id}>
                                 <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
                                     <Link to={link.to} className="header-button text-mygrey hover:text-myblack hover:bg-mygrey-light">
-                                        {Icon && <Icon aria-hidden="true" color="currentColor"/>}
+                                        {Icon && <Icon aria-hidden="true" color="currentColor" className="size-5"/>}
                                         {link.title}</Link>
                                     </NavigationMenuLink>
                             </NavigationMenuItem>
@@ -42,8 +43,9 @@ export function Header() {
                                     <Button
                                     variant="circle"
                                     className=" text-mygrey-darker hover:text-myblack hover:bg-mygrey-light"
+                                    onClick={() => appDispatch.dispatch(button.onClick as 'logout' | 'switch-theme')}
                                     >
-                                        {Icon && <Icon aria-hidden="true" color="currentColor"/>}
+                                        {Icon && <Icon aria-hidden="true" color="currentColor" className="size-5"/>}
                                     </Button>
                                 </NavigationMenuLink>
                             </NavigationMenuItem>
