@@ -1,0 +1,41 @@
+import { removeTokens } from './cookies';
+
+type AppEvents = {
+    'logout': undefined;
+    'switch-theme': undefined;
+};
+
+class AppDispatch {
+    private target = new EventTarget();
+
+    dispatch<K extends keyof AppEvents>(event: K, detail?: AppEvents[K]) {
+        this.target.dispatchEvent(new CustomEvent(event, { detail }));
+    }
+
+    subscribe<K extends keyof AppEvents>(event: K, listener: (detail: AppEvents[K]) => void) {
+        const handler = (e: Event) => listener((e as CustomEvent<AppEvents[K]>).detail);
+        this.target.addEventListener(event, handler);
+        return () => this.target.removeEventListener(event, handler);
+    }
+}
+
+export const appDispatch = new AppDispatch();
+
+appDispatch.subscribe('logout', () => {
+    removeTokens();
+    window.location.href = '/login';
+});
+
+appDispatch.subscribe('switch-theme', () => {
+    const isDark = document.documentElement.classList.toggle('dark');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+});
+
+if (typeof window !== 'undefined') {
+    if (localStorage.getItem('theme') === 'dark' || 
+        (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+    } else {
+        document.documentElement.classList.remove('dark');
+    }
+}
