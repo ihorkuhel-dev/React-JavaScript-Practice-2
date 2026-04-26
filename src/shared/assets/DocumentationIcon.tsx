@@ -1,0 +1,5 @@
+import * as React from "react";
+
+export const DocumentationIcon: React.FC<React.SVGProps<SVGSVGElement>> = ({color, width = 24, height = 24}) => (
+    <svg width={width} height={height} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.681 6.999a.65.65 0 1 0 0 1.3h6.703a.65.65 0 1 0 0-1.3zm-.65 3.648a.65.65 0 0 1 .65-.65h6.703a.65.65 0 1 1 0 1.3H8.68a.65.65 0 0 1-.65-.65m.651 2.349a.65.65 0 1 0 0 1.3h3.202a.65.65 0 1 0 0-1.3z" fill={color}/><path fillRule="evenodd" clipRule="evenodd" d="M5.038 19.394c0 1.26 1.39 2.025 2.456 1.351l1.953-1.234 1.608 1.18a1.6 1.6 0 0 0 1.895 0l1.615-1.185 2.02 1.252c1.065.661 2.444-.105 2.444-1.359l.009-13.8a2.6 2.6 0 0 0-2.601-2.598h-8.79a2.6 2.6 0 0 0-2.6 2.599zM7.648 4.3a1.3 1.3 0 0 0-1.301 1.3l-.009 13.794a.3.3 0 0 0 .46.253l2.3-1.453a.7.7 0 0 1 .789.027l1.938 1.422a.3.3 0 0 0 .355 0l1.942-1.424a.7.7 0 0 1 .784-.03l2.364 1.465a.3.3 0 0 0 .458-.255l.01-13.8A1.3 1.3 0 0 0 16.436 4.3z" fill={color}/></svg>
+)
