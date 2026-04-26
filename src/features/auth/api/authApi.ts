@@ -1,5 +1,5 @@
 import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
-import {apiClient} from "@/shared/api/base.ts";
+import {apiClient, UnauthorizedError} from "@/shared/api/base.ts";
 import {removeTokens, setTokens} from "@/shared/lib/cookies.ts";
 
 
@@ -85,9 +85,13 @@ export const useLogout = () => {
 };
 
 export const useGetCurrentUser = () => {
-  return useQuery({
-    queryKey: authKeys.currentUser(),
-    queryFn: getCurrentUserFn,
-    retry: false,
-  });
+    return useQuery({
+        queryKey: authKeys.currentUser(),
+        queryFn: getCurrentUserFn,
+        staleTime: 5 * 60 * 1000,
+        retry: (failureCount, error) => {
+            if (error instanceof UnauthorizedError) return false;
+            return failureCount < 2;
+        },
+    });
 };

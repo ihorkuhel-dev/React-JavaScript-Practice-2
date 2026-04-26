@@ -7,6 +7,13 @@ interface FetchOptions extends Omit<RequestInit, 'body'> {
     body?: unknown
 }
 
+export class UnauthorizedError extends Error {
+    constructor() {
+        super('Unauthorized')
+        this.name = 'UnauthorizedError'
+    }
+}
+
 export const apiClient = async <T>(endpoint: string, options: FetchOptions = {}, _isRetry = false): Promise<T> => {
     const { params, headers, body, ...customConfig } = options
 
@@ -61,13 +68,14 @@ export const apiClient = async <T>(endpoint: string, options: FetchOptions = {},
             }
 
             const data = await refreshResponse.json()
-            setTokens(data.token, data.refreshToken)
+            setTokens(data.accessToken, data.refreshToken)
 
             return await apiClient<T>(endpoint, options, true)
         } catch (error) {
             removeTokens()
             window.location.href = '/login'
-            throw new Error('Session expired', { cause: error })
+            console.log(error)
+            throw new UnauthorizedError()
         }
     }
 
