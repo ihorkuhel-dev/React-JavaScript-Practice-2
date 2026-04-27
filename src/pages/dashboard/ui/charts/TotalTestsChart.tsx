@@ -1,13 +1,14 @@
 import { useVanillaChart } from '@/shared/lib/useChart';
 import type { ITotalTestsData } from '@/features/dashboard/api/mock-data';
+import { memo, useMemo } from 'react';
 
 interface TotalTestsChartProps {
     data: ITotalTestsData;
 }
 
-export function TotalTestsChart({ data: sourceData }: TotalTestsChartProps) {
-    const canvasRef = useVanillaChart<'line'>({
-        type: 'line',
+export const TotalTestsChart = memo(function TotalTestsChart({ data: sourceData }: TotalTestsChartProps) {
+    const chartConfig = useMemo(() => ({
+        type: 'line' as const,
         data: {
             labels: sourceData.labels,
             datasets: [
@@ -39,15 +40,17 @@ export function TotalTestsChart({ data: sourceData }: TotalTestsChartProps) {
                 x: {
                     grid: { display: true },
                     border: { display: false },
-                    ticks: { maxTicksLimit: 10, align: 'inner' }
+                    ticks: { maxTicksLimit: 10, align: 'inner' as const }
                 }
             }
         }
-    });
+    }), [sourceData]);
+
+    const canvasRef = useVanillaChart<'line'>(chartConfig);
 
     return (
-        <div className="relative w-full h-full">
+        <div className="relative w-full h-full min-h-[300px]">
             <canvas ref={canvasRef} />
         </div>
     );
-}
+});

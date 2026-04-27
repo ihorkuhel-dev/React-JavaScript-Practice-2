@@ -4,11 +4,12 @@ import { DrugApprovalRatesChart } from "./charts/DrugApprovalRatesChart";
 import { TestingProcessChart } from "./charts/TestingProcessChart";
 import { NumberOfPeopleTestedChart } from "./charts/NumberOfPeopleTestedChart";
 import {Badge} from "@/shared/ui/badge.tsx";
+import {memo} from "react";
 interface CategoryChartProps {
     category: IChartByCategory;
 }
 
-export default function CategoryChart({ category }: CategoryChartProps) {
+export default memo(function CategoryChart({ category }: CategoryChartProps) {
     return (
         <div className="p-4 bg-mywhite rounded-md border border-mygrey-dark inline-flex flex-col justify-start items-start gap-9">
             <div className="card_header text-left flex gap-5">
@@ -48,4 +49,4 @@ export default function CategoryChart({ category }: CategoryChartProps) {
             </div>
         </div>
     );
-}
+});
