@@ -16,9 +16,9 @@ export const Route = createFileRoute('/_main')({
 
 function MainLayout() {
     return (
-        <div className="min-h-screen flex flex-col bg-mygrey-light">
+        <div className="min-h-screen flex flex-col bg-mygrey-light ">
             <Header/>
-            <main className="flex-1 p-6 pt-24">
+            <main className="flex-1 p-6 pt-24 max-w-[1900px] m-auto">
                 <Outlet />
             </main>
         </div>
