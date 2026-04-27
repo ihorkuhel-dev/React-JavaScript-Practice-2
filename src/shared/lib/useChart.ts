@@ -38,7 +38,6 @@ export function useVanillaChart<T extends ChartType>(config: ChartConfiguration<
     const chartInstance = useRef<ChartJS | null>(null);
     const configRef = useRef(config);
 
-    // Keep config reference up to date without triggering re-renders
     useEffect(() => {
         configRef.current = config;
     });
@@ -71,6 +70,14 @@ export function useVanillaChart<T extends ChartType>(config: ChartConfiguration<
                     legend: { display: false },
                     tooltip: { enabled: true, mode: 'index' as const, intersect: false },
                     ...currentConfig.options?.plugins
+                },
+                transitions: {
+                    resize: {
+                        animation: {
+                            duration: 0
+                        }
+                    },
+                    ...currentConfig.options?.transitions
                 }
             }
         } as unknown as ChartConfiguration<T>;

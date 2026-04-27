@@ -39,14 +39,14 @@ export function TotalTestsChart({ data: sourceData }: TotalTestsChartProps) {
                 x: {
                     grid: { display: true },
                     border: { display: false },
-                    ticks: { maxTicksLimit: 3, align: 'inner' }
+                    ticks: { maxTicksLimit: 10, align: 'inner' }
                 }
             }
         }
     });
 
     return (
-        <div className="relative w-full flex-1">
+        <div className="relative w-full h-full">
             <canvas ref={canvasRef} />
         </div>
     );

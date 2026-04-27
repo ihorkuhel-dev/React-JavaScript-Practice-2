@@ -11,18 +11,19 @@ import {
     SelectTrigger,
     SelectValue
 } from "@/shared/ui/select.tsx";
+import "./Dashboard.scss"
 
 export function DashboardPage() {
     const [selectedPeriodIndex, setSelectedPeriodIndex] = useState(0);
 
     return (
-        <div className="flex flex-col space-y-4 text-center w-full h-full">
+        <div className="dashboardPage">
             <div className="flex flex-col items-start  gap-2 mb-12">
                 <h1 className="text-myblack text-2xl font-semibold">Testing Dashboard</h1>
                 <h2 className="text-mygrey text-sm">Uncover insights into your testing processes.</h2>
             </div>
-            <div className="flex gap-7">
-                <div className="flex flex-col gap-10">
+            <div className="chartBlock gap-7">
+                <div className="totalChart gap-7">
                     <div className="chartSummary pb-6 border-b border-mygrey-lighter inline-flex justify-start items-start gap-11 flex-wrap">
                         {chart_summary.map((item) => {
                             const Icon = item.icon;
@@ -39,7 +40,7 @@ export function DashboardPage() {
                             );
                         })}
                     </div>
-                    <div className="chart_header flex items-center gap-2 justify-between">
+                    <div className="chartHeader gap-2">
                         <div className="flex flex-col items-start gap-1">
                             <h1 className="text-myblack text-xl font-semibold">Total tests</h1>
                             <h2 className="text-mygrey text-sm">Testing results received in all areas</h2>
@@ -58,13 +59,9 @@ export function DashboardPage() {
                             </SelectContent>
                         </Select>
                     </div>
-
                     <TotalTestsChart data={total_tests_data[selectedPeriodIndex]} />
-
-
-
                 </div>
-                <div className="grid grid-cols-1 min-[300px]:grid-cols-2 gap-4">
+                <div className="categoryGrid gap-7">
                     {chart_by_category.map((category) => (
                         <CategoryChart category={category} key={category.id} />
                     ))}

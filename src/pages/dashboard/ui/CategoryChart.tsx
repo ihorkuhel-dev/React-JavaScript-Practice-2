@@ -3,6 +3,7 @@ import { TotalTestedDrugsChart } from "./charts/TotalTestedDrugsChart";
 import { DrugApprovalRatesChart } from "./charts/DrugApprovalRatesChart";
 import { TestingProcessChart } from "./charts/TestingProcessChart";
 import { NumberOfPeopleTestedChart } from "./charts/NumberOfPeopleTestedChart";
+import {Badge} from "@/shared/ui/badge.tsx";
 interface CategoryChartProps {
     category: IChartByCategory;
 }
@@ -15,7 +16,7 @@ export default function CategoryChart({ category }: CategoryChartProps) {
                     <div className="flex items-center gap-3.5">
                         <h3 className="text-xl font-semibold text-myblack mb-1">{category.title}</h3>
                         {category.totalPercentage &&
-                            <span className="text-xs font-semibold text-myorange-darker bg-myorange border border-mygorange-dark px-2 py-1 rounded-full">{category.totalPercentage}</span>
+                            <Badge variant="orange">{category.totalPercentage}</Badge>
                         }
                     </div>
                     <p className="text-sm text-mygrey mb-4 ">{category.subTitle}</p>
