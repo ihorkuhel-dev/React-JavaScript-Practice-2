@@ -13,7 +13,7 @@ export type SearchParams = z.infer<typeof SearchSchema>;
 
 export const useUrlState = () => {
     const searchParams = useSearch({ from: '/_main' });
-    const navigate = useNavigate({ from: '/_main' });
+    const navigate = useNavigate({ strict: false });
 
     const sorting = useMemo<SortingState>(() => {
         if (searchParams.sortBy && searchParams.order)
