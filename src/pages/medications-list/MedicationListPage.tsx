@@ -1,6 +1,6 @@
 import {useProducts} from "@/features/medecine/api/medicineApi.ts";
-import {useMemo} from "react";
-import {flexRender, getCoreRowModel, useReactTable} from "@tanstack/react-table";
+import {useMemo,} from "react";
+import {flexRender, getCoreRowModel, type SortingState, useReactTable} from "@tanstack/react-table";
 import {
     Table,
     TableHeader,
@@ -10,15 +10,64 @@ import {
 import ReactionBadge from "@/pages/medications-list/ui/ReactionBadge.tsx";
 import ProcessTracker from "@/pages/medications-list/ui/ProcessTracker.tsx";
 import StatusTracker from "@/pages/medications-list/ui/StatusTracker.tsx";
-import {useNavigate} from "@tanstack/react-router";
+import {useNavigate, useSearch} from "@tanstack/react-router";
+import MedicationPagination from "@/pages/medications-list/ui/MedicationPagination.tsx";
 
 function MedicationListPage() {
 
-    const {data} = useProducts()
+    const searchParams = useSearch({strict: false}) as{sortBy?: string, order?: 'asc' | 'desc'};
     const navigate = useNavigate();
 
-    const columns = useMemo(() => [
+    const sorting = useMemo<SortingState>(() => {
+        if (searchParams.sortBy && searchParams.order)
+            return [{ id: searchParams.sortBy, desc: searchParams.order === 'desc' }];
 
+        return [];
+    }, [searchParams.sortBy, searchParams.order]);
+
+    const queryParams = useMemo(() => {
+        const params: GetProductsParams = { limit: 30 };
+
+        if (searchParams.sortBy && searchParams.sortBy !== 'undefined')
+            params.sortBy = searchParams.sortBy;
+
+        if (searchParams.order && searchParams.order !== 'undefined')
+            params.order = searchParams.order;
+
+
+        return params;
+    }, [searchParams.sortBy, searchParams.order]);
+
+    const { data, isLoading } = useProducts(queryParams);
+
+    const handleSortingChange = (updaterOrValue: Updater<SortingState>) => {
+        const newSorting = typeof updaterOrValue === 'function'
+            ? updaterOrValue(sorting)
+            : updaterOrValue;
+
+        const newSortBy = newSorting.length > 0 ? newSorting[0].id : undefined;
+        const newOrder = newSorting.length > 0 ? (newSorting[0].desc ? 'desc' : 'asc') : undefined;
+
+        navigate({
+            search: (old: any) => {
+                const newSearch = { ...old };
+
+                if (newSortBy && newOrder) {
+                    newSearch.sortBy = newSortBy;
+                    newSearch.order = newOrder;
+                } else {
+                    delete newSearch.sortBy;
+                    delete newSearch.order;
+                }
+
+                return newSearch;
+            },
+            replace: true,
+        });
+    };
+
+
+    const columns = useMemo(() => [
         {
             header: 'TITLE',
             accessorKey: 'title',
@@ -34,16 +83,19 @@ function MedicationListPage() {
         {
             header: 'SUCCESS REACTION',
             accessorKey: 'success_reaction',
+            enableSorting: false,
             cell: (info) => <ReactionBadge isSuccess={info.getValue() as boolean}/>
         },
         {
             header: 'PROCESS',
             accessorKey: 'process',
+            enableSorting: false,
             cell: (info) => <ProcessTracker values={info.getValue() as [number, number]} />
         },
         {
             header: 'STATUS',
             accessorKey: 'status',
+            enableSorting: false,
             cell: <StatusTracker/>
         }
     ], [])
@@ -51,11 +103,8 @@ function MedicationListPage() {
     const tableData = useMemo(() => {
         if(!data?.products) return []
 
-
         return data.products.map(item => {
-
             const processVal = Math.floor(Math.random() * 100);
-
             return {
                 ...item,
                 success_reaction: Math.random() > 0.5,
@@ -75,7 +124,12 @@ function MedicationListPage() {
     const table= useReactTable({
         data: tableData,
         columns,
+        state: {
+            sorting
+        },
+        onSortingChange: handleSortingChange,
         getCoreRowModel: getCoreRowModel(),
+        manualSorting: true,
     })
 
     const handleClick = (id : number | string) => {
@@ -93,7 +147,9 @@ function MedicationListPage() {
                             {table.getHeaderGroups().map((headerGroup) => (
                                 <TableRow  key={headerGroup.id}>
                                     {headerGroup.headers.map((header) => (
-                                        <TableHead key={header.id}>
+                                        <TableHead key={header.id}
+                                                   onClick={header.column.getToggleSortingHandler()}
+                                        >
                                             {header.isPlaceholder
                                                 ? null
                                                 : flexRender(
@@ -123,6 +179,8 @@ function MedicationListPage() {
                        )})}
                 </TableBody>
             </Table>
+
+            <MedicationPagination limit={}/>
         </div>
     )
 }
