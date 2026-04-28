@@ -13,7 +13,7 @@ export type SearchParams = z.infer<typeof SearchSchema>;
 
 export const useUrlState = () => {
     const searchParams = useSearch({ from: '/_main' });
-    const navigate = useNavigate({ strict: false });
+    const navigate = useNavigate();
 
     const sorting = useMemo<SortingState>(() => {
         if (searchParams.sortBy && searchParams.order)
@@ -30,8 +30,9 @@ export const useUrlState = () => {
         const order = newSorting.length > 0 ? (newSorting[0].desc ? 'desc' : 'asc') : undefined;
 
         void navigate({
-            search: (old: SearchParams) => ({
-                ...old,
+            to: '.',
+            search: (old: unknown) => ({
+                ...(old as SearchParams),
                 sortBy,
                 order,
                 page: 1,
@@ -42,8 +43,9 @@ export const useUrlState = () => {
 
     const setPage = (newPage: number) => {
         void navigate({
-            search: (old: SearchParams) => ({
-                ...old,
+            to: '.',
+            search: (old: unknown) => ({
+                ...(old as SearchParams),
                 page: newPage,
             }),
             replace: true,
