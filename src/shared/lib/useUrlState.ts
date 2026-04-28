@@ -1,16 +1,19 @@
 import { useSearch, useNavigate } from '@tanstack/react-router';
 import { useMemo } from 'react';
 import type { SortingState, Updater } from '@tanstack/react-table';
+import { z } from 'zod';
 
-export type TableSearchParams = {
-    sortBy?: string;
-    order?: 'asc' | 'desc';
-    page?: number;
-};
+export const SearchSchema = z.object({
+    sortBy: z.string().optional(),
+    order: z.enum(['asc', 'desc']).optional(),
+    page: z.number().catch(1).optional(),
+});
+
+export type SearchParams = z.infer<typeof SearchSchema>;
 
 export const useUrlState = () => {
-    const searchParams = useSearch({ strict: false }) as TableSearchParams;
-    const navigate = useNavigate();
+    const searchParams = useSearch({ from: '/_main' });
+    const navigate = useNavigate({ from: '/_main' });
 
     const sorting = useMemo<SortingState>(() => {
         if (searchParams.sortBy && searchParams.order)
@@ -26,23 +29,23 @@ export const useUrlState = () => {
         const sortBy = newSorting.length > 0 ? newSorting[0].id : undefined;
         const order = newSorting.length > 0 ? (newSorting[0].desc ? 'desc' : 'asc') : undefined;
 
-        navigate({
-            search: (old: TableSearchParams) => ({
+        void navigate({
+            search: (old: SearchParams) => ({
                 ...old,
                 sortBy,
                 order,
                 page: 1,
-            }) as any,
+            }),
             replace: true,
         });
     };
 
     const setPage = (newPage: number) => {
-        navigate({
-            search: (old: TableSearchParams) => ({
+        void navigate({
+            search: (old: SearchParams) => ({
                 ...old,
                 page: newPage,
-            }) as any,
+            }),
             replace: true,
         });
     };

@@ -1,6 +1,6 @@
-import { useProducts, type GetProductsParams } from "@/features/medecine/api/medicineApi.ts";
+import { useProducts, type GetProductsParams, type Product } from "@/features/medecine/api/medicineApi.ts";
 import { useMemo, } from "react";
-import { flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
+import { flexRender, getCoreRowModel, useReactTable, type ColumnDef } from "@tanstack/react-table";
 import {
     Table,
     TableHeader,
@@ -13,6 +13,12 @@ import StatusTracker from "@/pages/medications-list/ui/StatusTracker.tsx";
 import { useNavigate } from "@tanstack/react-router";
 import { useUrlState } from "@/shared/lib/useUrlState.ts";
 import MedicationPagination from "@/pages/medications-list/ui/MedicationPagination.tsx";
+
+export type TableProduct = Product & {
+    success_reaction: boolean;
+    process: [number, number];
+    status: [number, number, number];
+};
 
 function MedicationListPage() {
 
@@ -35,10 +41,9 @@ function MedicationListPage() {
         return params;
     }, [searchParams.sortBy, searchParams.order, searchParams.page]);
 
-    const { data, isLoading } = useProducts(queryParams);
+    const { data } = useProducts(queryParams);
 
-
-    const columns = useMemo(() => [
+    const columns = useMemo<ColumnDef<TableProduct>[]>(() => [
         {
             header: 'TITLE',
             accessorKey: 'title',
@@ -71,7 +76,7 @@ function MedicationListPage() {
         }
     ], [])
 
-    const tableData = useMemo(() => {
+    const tableData = useMemo<TableProduct[]>(() => {
         if (!data?.products) return []
 
         return data.products.map(item => {
@@ -89,7 +94,7 @@ function MedicationListPage() {
                     (baseVal * 3) % 10,
                     (baseVal * 5) % 10,
                     (baseVal * 7) % 10
-                ],
+                ] as [number, number, number],
             }
         })
     }, [data])
@@ -106,7 +111,7 @@ function MedicationListPage() {
     })
 
     const handleClick = (id: number | string) => {
-        navigate({ to: `/medications/${id}` });
+        void navigate({ to: `/medications/${id}` });
     }
 
     return (
