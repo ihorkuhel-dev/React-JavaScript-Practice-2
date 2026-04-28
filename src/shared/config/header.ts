@@ -30,7 +30,7 @@ export const NAV_LINK: INavLink[] = [
     {
         id: 'link-tables',
         title: 'Tables',
-        to: '/medications',
+        to: '/profile',
         icon: TableIcon,
     },
     {
