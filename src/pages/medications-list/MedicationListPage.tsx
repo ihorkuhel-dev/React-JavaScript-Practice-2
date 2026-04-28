@@ -10,10 +10,12 @@ import {
 import ReactionBadge from "@/pages/medications-list/ui/ReactionBadge.tsx";
 import ProcessTracker from "@/pages/medications-list/ui/ProcessTracker.tsx";
 import StatusTracker from "@/pages/medications-list/ui/StatusTracker.tsx";
+import {useNavigate} from "@tanstack/react-router";
 
 function MedicationListPage() {
 
     const {data} = useProducts()
+    const navigate = useNavigate();
 
     const columns = useMemo(() => [
 
@@ -76,6 +78,10 @@ function MedicationListPage() {
         getCoreRowModel: getCoreRowModel(),
     })
 
+    const handleClick = (id : number | string) => {
+        navigate({ to: `/medications/${id}` });
+    }
+
     return (
         <div style={{ padding: '20px' }}>
             <div className="flex flex-col items-start  gap-2 mb-12">
@@ -100,15 +106,21 @@ function MedicationListPage() {
                             ))}
                 </TableHeader>
                 <TableBody>
-                    {table.getRowModel().rows.map((row) => (
-                        <TableRow  key={row.id}>
+                    {table.getRowModel().rows.map((row) => {
+                        const productId = row.original.id;
+
+                       return(
+                           <TableRow key={row.id}
+                                     onClick={() =>handleClick(productId)}
+                                     className="cursor-pointer"
+                           >
                             {row.getVisibleCells().map((cell) => (
-                                <TableCell  key={cell.id}>
+                                <TableCell key={cell.id}>
                                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                </TableCell >
+                                </TableCell>
                             ))}
-                        </TableRow >
-                    ))}
+                        </TableRow>
+                       )})}
                 </TableBody>
             </Table>
         </div>

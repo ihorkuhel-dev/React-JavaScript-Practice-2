@@ -6,7 +6,6 @@ interface ProcessTracker {
 
 export default function ProcessTracker({values}: ProcessTracker) {
 
-    console.log(values);
     const lineWidth = 120
     const [val1, val2] = values;
     const totalValues = val1 + val2;
