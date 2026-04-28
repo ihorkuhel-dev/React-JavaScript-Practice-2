@@ -1,10 +1,10 @@
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router'
 import { getAccessToken } from '@/shared/lib/cookies'
 import {Header} from "@/widgets/header/Header.tsx";
-import { tableSearchSchema } from '@/shared/lib/useUrlState.ts';
+import { SearchSchema } from '@/shared/lib/useUrlState.ts';
 
 export const Route = createFileRoute('/_main')({
-    validateSearch: tableSearchSchema,
+    validateSearch: SearchSchema,
     beforeLoad: () => {
         const token = getAccessToken()
         if (!token) {
