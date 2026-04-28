@@ -19,9 +19,7 @@ const badgeVariants = cva(
         ghost:
           "hover:bg-muted hover:text-muted-foreground dark:hover:bg-muted/50",
         link: "text-primary underline-offset-4 hover:underline",
-          orange: "text-xs font-semibold text-myorange-darker bg-myorange border border-mygorange-dark px-2 py-1 rounded-full",
-        circle: 'flex items-center justify-center w-7  h-7 aspect-square  p-2 rounded-full'
-
+          orange: "text-xs font-semibold text-myorange-darker bg-myorange border border-mygorange-dark px-2 py-1 rounded-full"
       },
     },
     defaultVariants: {
