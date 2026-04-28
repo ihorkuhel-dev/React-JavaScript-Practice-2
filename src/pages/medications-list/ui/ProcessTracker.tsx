@@ -1,10 +1,10 @@
 import {Progress} from "@/shared/ui/progress.tsx";
 
-interface ProcessTracker {
+interface ProcessTrackerProps {
     values: [number, number];
 }
 
-export default function ProcessTracker({values}: ProcessTracker) {
+export default function ProcessTracker({values}: ProcessTrackerProps) {
 
     const lineWidth = 120
     const [val1, val2] = values;
@@ -15,12 +15,9 @@ export default function ProcessTracker({values}: ProcessTracker) {
     const val1Length = Math.floor(val1 * ratio);
 
     return(
-        <>
-            <div>
-                <p className="mb-2">{val1} / {val2}</p>
-                <Progress value={val1Length} className="w-[120px]" />
-            </div>
-
-        </>
+        <div>
+            <p className="mb-2">{val1} / {val2}</p>
+            <Progress value={val1Length} className="w-[120px]" />
+        </div>
     )
 }
