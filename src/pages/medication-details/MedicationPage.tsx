@@ -6,6 +6,7 @@ import {CalendarIcon} from "@/shared/assets/CalendarIcon.tsx";
 import {DirectionIcon} from "@/shared/assets/DeclineIcon.tsx";
 import {Badge} from "@/shared/ui/badge.tsx";
 import './MedicationPage.scss'
+import MedicationMap from "@/pages/medication-details/ui/MedicationMap.tsx";
 export function MedicationPage() {
 
     const routeApi = getRouteApi('/_main/medications/$id')
@@ -67,7 +68,7 @@ export function MedicationPage() {
                 </div>
                 <div className="flex flex-col gap-4">
                     <h3 className="text-2xl font-semibold">Location</h3>
-
+                    <MedicationMap/>
                     <address className="flex gap-4">
                         <p className="text-sm font-medium text-myblack">434 Rockaway Ave, 11212-5636</p>
                         <p className="text-sm font-medium text-mygrey">Brooklyn New York</p>
