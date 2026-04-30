@@ -20,22 +20,7 @@ class AppDispatch {
 }
 
 export const appDispatch = new AppDispatch();
-
 appDispatch.subscribe('logout', () => {
     removeTokens();
     window.location.href = '/login';
 });
-
-appDispatch.subscribe('switch-theme', () => {
-    const isDark = document.documentElement.classList.toggle('dark');
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
-});
-
-if (typeof window !== 'undefined') {
-    if (localStorage.getItem('theme') === 'dark' || 
-        (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.classList.add('dark');
-    } else {
-        document.documentElement.classList.remove('dark');
-    }
-}

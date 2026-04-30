@@ -30,7 +30,7 @@
         --aquamarine-lighter: #C7EBFF;
     }
 
-    :root.dark {
+    :root[data-theme='dark'] {
         --accent-color: #5b8dff;
         --accent-color-lighter: #1d2b4f;
 
