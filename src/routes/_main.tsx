@@ -20,7 +20,7 @@ function MainLayout() {
     return (
         <div className="min-h-screen flex flex-col bg-mygrey-light ">
             <Header/>
-            <main className="flex-1 p-6 pt-24 max-w-[1900px] w-full m-auto">
+            <main className="flex flex-col flex-1 p-6 pt-24 max-w-[1900px] w-full m-auto">
                 <Outlet />
             </main>
         </div>
