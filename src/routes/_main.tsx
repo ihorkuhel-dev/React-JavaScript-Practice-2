@@ -1,8 +1,8 @@
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router'
 import { getAccessToken } from '@/shared/lib/cookies'
-import {Header} from "@/widgets/header/Header.tsx";
 import { SearchSchema } from '@/shared/lib/useUrlState.ts';
-
+import Menu from "@/widgets/header/menu/Menu.tsx";
+import {useMediaQuery} from "@/shared/lib/useMediaQuery.tsx";
 export const Route = createFileRoute('/_main')({
     validateSearch: SearchSchema,
     beforeLoad: () => {
@@ -17,10 +17,12 @@ export const Route = createFileRoute('/_main')({
 })
 
 function MainLayout() {
+    const isMobile = useMediaQuery('(max-width: 800px)');
+
     return (
         <div className="min-h-screen flex flex-col bg-mygrey-light ">
-            <Header/>
-            <main className="flex flex-col flex-1 p-6 pt-24 max-w-[1900px] w-full m-auto">
+            <Menu isMobile={isMobile}/>
+            <main className={`flex flex-col flex-1 p-6 max-w-[1900px] w-full m-auto ${isMobile ? ' ' : 'pt-24'}`}>
                 <Outlet />
             </main>
         </div>

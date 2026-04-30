@@ -1,23 +1,31 @@
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import {useEffect, useRef} from "react";
+import {useTheme} from "@/shared/lib/ThemeContext.tsx";
 
 export default function MedicationMap() {
 
     const mapRef = useRef<HTMLDivElement>(null);
     const mapInstanceRef = useRef<Map>(null);
-
-    const styleApi = 'streets-v12'
+    const {theme} = useTheme();
+    const styleApi = theme == 'light' ? 'streets-v12' : 'dark-v11'
     const API_TOKEN = import.meta.env.VITE_MAPBOX_TOKEN
 
     useEffect(() => {
         if(mapRef.current && !mapInstanceRef.current){
-            const map = L.map(mapRef.current).setView([51.505, -0.09], 13);
+            const map = L.map(mapRef.current,{
+                center: [51.505, -0.09],
+                zoom: 10,
+                preferCanvas: true,
+                zoomControl: false
+            })
 
             L.tileLayer(
                 `https://api.mapbox.com/styles/v1/mapbox/${styleApi}/tiles/256/{z}/{x}/{y}@2x?access_token=${API_TOKEN}`,
                 {
                     maxZoom: 19,
+                    preferCanvas: true,
+                    zoomControl: false
                 }
             ).addTo(map);
 
@@ -33,12 +41,12 @@ export default function MedicationMap() {
                 mapInstanceRef.current = undefined;
             }
         }
-    }, [])
+    }, [styleApi])
 
     return (
         <div
             ref={mapRef}
-            style={{ height: '400px', width: '100%' }}
+            style={{ height: '400px', width: '100%' , zIndex: 5 }}
         />
     )
 }
