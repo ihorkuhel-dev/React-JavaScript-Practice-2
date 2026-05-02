@@ -2,11 +2,15 @@ import {getRouteApi} from "@tanstack/react-router";
 import {useProductById} from "@/features/medecine/api/medicineApi.ts";
 import {GeoIcon} from "@/shared/assets/GeoIcon.tsx";
 import {Button} from "@/shared/ui/button.tsx";
-import {CalendarIcon} from "@/shared/assets/CalendarIcon.tsx";
 import {DirectionIcon} from "@/shared/assets/DeclineIcon.tsx";
 import {Badge} from "@/shared/ui/badge.tsx";
 import './MedicationPage.scss'
 import MedicationMap from "@/pages/medication-details/ui/MedicationMap.tsx";
+import {toast} from "sonner";
+import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover.tsx";
+import { appDispatch } from "@/shared/lib/dispatch.ts";
+import { MedicationCalendarPopover } from "@/pages/medication-details/ui/MedicationCalendarPopover.tsx";
+
 export function MedicationPage() {
 
     const routeApi = getRouteApi('/_main/medications/$id')
@@ -15,6 +19,18 @@ export function MedicationPage() {
     const {
         data: productData,
     } = useProductById(id, true);
+
+    const handleStartProcess = () => {
+        toast.success('Processing product!');
+    };
+
+    const handleAddToCalendar = (startDate: Date, endDate: Date) => {
+        const title = productData?.title || 'Taking medication';
+        const description = productData?.description || '';
+        const location = '434 Rockaway Ave, Brooklyn New York, 11212-5636';
+
+        appDispatch.dispatch('add-to-calendar', { title, description, location, startDate, endDate });
+    };
 
     return (
         <div className="medication-page">
@@ -49,11 +65,8 @@ export function MedicationPage() {
                         </div>
                     </div>
                     <div className="flex gap-4 max-sm:flex-col ">
-                        <Button className="flex-1 max-sm:flex-initial">Start Process</Button>
-                        <Button className="flex-1 max-sm:flex-initial"
-                                variant="secondary">
-                            <CalendarIcon color="currentColor" className="mr-1" /> Add to Calendar
-                        </Button>
+                        <Button className="flex-1 max-sm:flex-initial" onClick={handleStartProcess}>Start Process</Button>
+                        <MedicationCalendarPopover onAdd={handleAddToCalendar} />
                     </div>
                 </div>
                 <div className="about-block">
@@ -74,7 +87,19 @@ export function MedicationPage() {
                         <p className="text-sm font-medium text-mygrey">Brooklyn New York</p>
                     </address>
 
-                    <Button variant='secondary'><DirectionIcon color="currentColor"/> Get Directions</Button>
+                    <Popover>
+                        <PopoverTrigger asChild>
+                            <Button variant='secondary'><DirectionIcon color="currentColor"/> Get Directions</Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-48 p-2 flex flex-col gap-1 z-[105]" align="end">
+                            <Button variant="ghost" className="justify-start w-full" onClick={() => window.open(`https://maps.apple.com/?q=${encodeURIComponent('434 Rockaway Ave, Brooklyn New York')}`, '_blank')}>
+                                Apple Maps
+                            </Button>
+                            <Button variant="ghost" className="justify-start w-full" onClick={() => window.open(`https://maps.google.com/?q=${encodeURIComponent('434 Rockaway Ave, Brooklyn New York')}`, '_blank')}>
+                                Google Maps
+                            </Button>
+                        </PopoverContent>
+                    </Popover>
                 </div>
                 <div className="flex flex-col gap-4">
                     <h3 className="text-2xl font-semibold">Tags</h3>

@@ -3,6 +3,7 @@ export type AppEvents = {
     'switch-theme': undefined;
     'open-user': undefined;
     'tools': undefined;
+    'add-to-calendar': { title: string; description: string; location: string; startDate: Date; endDate: Date; };
 };
 
 class AppDispatch {

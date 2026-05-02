@@ -4,6 +4,7 @@ import {appDispatch} from "@/shared/lib/dispatch.ts";
 import { removeTokens } from "@/shared/lib/cookies.ts";
 import { useRouter } from "@tanstack/react-router";
 import { toast } from "sonner";
+import {openGoogleCalendar} from "@/pages/medication-details/lib/calendar.ts";
 
 export const GlobalListener = () => {
     const {toggleTheme} = useTheme();
@@ -27,10 +28,17 @@ export const GlobalListener = () => {
                 }});
         });
 
+        const unsubscribeCalendar = appDispatch.subscribe('add-to-calendar', (detail) => {
+            if (detail) {
+                openGoogleCalendar(detail.title, detail.description, detail.location, detail.startDate, detail.endDate);
+            }
+        });
+
         return () => {
             unsubscribeTheme();
             unsubscribeLogout();
             unsubscribeTools();
+            unsubscribeCalendar();
         }
     }, [toggleTheme, router]);
 
