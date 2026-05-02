@@ -5,6 +5,7 @@ import {DocumentationIcon} from "@/shared/assets/DocumentationIcon.tsx";
 import {LogOutIcon} from "@/shared/assets/LogOutIcon.tsx";
 import {SunIcon} from "@/shared/assets/SunIcon.tsx";
 import type {FC, SVGProps} from "react";
+import {ToolsIcon} from "@/shared/assets/ToolsIcon.tsx";
 
 export interface INavLink {
     id: string | number;
@@ -16,7 +17,7 @@ export interface INavLink {
 export interface INavButton {
     id: string | number;
     description: string;
-    onClick: string;
+    onClick?: string;
     icon:  FC<SVGProps<SVGSVGElement>>;
 }
 
@@ -59,5 +60,17 @@ export const NAV_BUTTON: INavButton[] = [
         description: 'Logout',
         onClick: 'logout',
         icon: LogOutIcon,
+    },
+    {
+        id: 'btn-tools',
+        description: 'Tools',
+        onClick: 'tools',
+        icon: ToolsIcon,
+    },
+    {
+        id: 'btn-avatar',
+        description: 'Avatar',
+        onClick: 'open-user',
+        icon: SunIcon,
     },
 ];

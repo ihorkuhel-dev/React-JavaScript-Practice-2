@@ -17,7 +17,7 @@ export const Route = createFileRoute('/_main')({
 })
 
 function MainLayout() {
-    const isMobile = useMediaQuery('(max-width: 800px)');
+    const isMobile = useMediaQuery('(max-width: 900px)');
 
     return (
         <div className="min-h-screen flex flex-col bg-mygrey-light ">
