@@ -3,6 +3,7 @@ import { removeTokens } from './cookies';
 type AppEvents = {
     'logout': undefined;
     'switch-theme': undefined;
+    'open-user': undefined;
 };
 
 class AppDispatch {
