@@ -1,9 +1,8 @@
-import { removeTokens } from './cookies';
-
 type AppEvents = {
     'logout': undefined;
     'switch-theme': undefined;
     'open-user': undefined;
+    'tools': undefined;
 };
 
 class AppDispatch {
@@ -21,7 +20,3 @@ class AppDispatch {
 }
 
 export const appDispatch = new AppDispatch();
-appDispatch.subscribe('logout', () => {
-    removeTokens();
-    window.location.href = '/login';
-});

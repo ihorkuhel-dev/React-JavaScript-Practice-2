@@ -1,19 +1,34 @@
 import {useTheme} from "@/shared/lib/ThemeContext.tsx";
 import {useEffect} from "react";
 import {appDispatch} from "@/shared/lib/dispatch.ts";
+import { removeTokens } from "@/shared/lib/cookies.ts";
+import { useRouter } from "@tanstack/react-router";
+import { toast } from "sonner";
 
 export const GlobalListener = () => {
     const {toggleTheme} = useTheme();
+    const router = useRouter();
 
     useEffect(() => {
-        const unsubscribe = appDispatch.subscribe('switch-theme', () => {
+        const unsubscribeTheme = appDispatch.subscribe('switch-theme', () => {
             toggleTheme();
         });
 
-        return () => {
-            unsubscribe();
-        }
-    }, [toggleTheme])
+        const unsubscribeLogout = appDispatch.subscribe('logout', () => {
+            removeTokens();
+            router.navigate({ to: '/login' });
+        });
 
-    return null
+        const unsubscribeTools = appDispatch.subscribe('tools', () => {
+            toast.info('Инструменты в разработке');
+        });
+
+        return () => {
+            unsubscribeTheme();
+            unsubscribeLogout();
+            unsubscribeTools();
+        }
+    }, [toggleTheme, router]);
+
+    return null;
 }
