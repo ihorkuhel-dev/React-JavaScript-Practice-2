@@ -5,7 +5,7 @@ import {
     NavigationMenuList,
     navigationMenuTriggerStyle,
 } from "@/shared/ui/navigation-menu.tsx"
-import {Link} from "@tanstack/react-router";
+import {Link, useLocation} from "@tanstack/react-router";
 import {NAV_BUTTON, NAV_LINK} from "@/shared/config/header.ts";
 import {Button} from "@/shared/ui/button.tsx";
 import { appDispatch } from '@/shared/lib/dispatch.ts'
@@ -13,14 +13,39 @@ import {useTheme} from "@/shared/lib/ThemeContext.tsx";
 import { MoonIcon } from "@/shared/assets/MoonIcon.tsx";
 import { SunIcon } from "@/shared/assets/SunIcon.tsx";
 import {memo} from "react";
-import { useGetCurrentUser } from "@/features/auth/api/authApi.ts";
+import { useGetCurrentUser, type User } from "@/features/auth/api/authApi.ts";
+import { toast } from "sonner";
+import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover.tsx";
 
 const NavLinkItem = ({ link, onClick }: { link: typeof NAV_LINK[0], onClick?: () => void }) => {
     const Icon = link.icon;
+    const location = useLocation();
+
+    const handleClick = (e: React.MouseEvent) => {
+        if (link.to === '#') {
+            e.preventDefault();
+            toast.warning('This page in development' , {
+                action: {
+                    label: "Undo",
+                    onClick: () => console.log("Undo"),
+                }
+            });
+        } else if (link.to === location.pathname) {
+            e.preventDefault();
+            toast.error('This is the same page', {
+                action: {
+                    label: "Undo",
+                    onClick: () => console.log("Undo"),
+                }
+            });
+        }
+        if (onClick) onClick();
+    };
+
     return (
         <NavigationMenuItem>
             <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                <Link onClick={onClick} to={link.to} className="header-button text-mygrey hover:text-myblack hover:bg-mygrey-light">
+                <Link onClick={handleClick} to={link.to} className="header-button text-mygrey hover:text-myblack hover:bg-mygrey-light">
                     {Icon && <Icon aria-hidden="true" color="currentColor" className="size-5"/>}
                     {link.title}
                 </Link>
@@ -29,13 +54,15 @@ const NavLinkItem = ({ link, onClick }: { link: typeof NAV_LINK[0], onClick?: ()
     );
 };
 
-const NavButtonItem = ({ button, theme, onClick, userImage }: { button: typeof NAV_BUTTON[0], theme: string, onClick?: () => void, userImage?: string }) => {
+const NavButtonItem = ({ button, theme, onClick, user }: { button: typeof NAV_BUTTON[0], theme: string, onClick?: () => void, user?: User }) => {
     const isTheme = button.onClick === 'switch-theme';
     const isAvatar = button.id === 'btn-avatar';
     const isDark = theme === 'dark';
     
     const handleAction = () => {
-        appDispatch.dispatch(button.onClick as 'logout' | 'switch-theme' | 'open-user-avatar');
+        if (button.onClick) {
+            appDispatch.dispatch(button.onClick);
+        }
         if (onClick && (button.onClick === 'logout' || isAvatar)) onClick();
     };
 
@@ -48,28 +75,50 @@ const NavButtonItem = ({ button, theme, onClick, userImage }: { button: typeof N
             : "text-myorange-darker bg-myorange-lighter rounded-full w-9";
     }
 
+    const buttonContent = (
+        <Button
+            variant="circle"
+            size={isTheme || isAvatar ? "circle" : "default"}
+            className={`${btnClasses} ${isAvatar ? 'p-0 overflow-hidden w-9 h-9' : ''}`}
+            onClick={!isAvatar ? handleAction : undefined}
+        >
+            {isAvatar && user?.image ? (
+                <img src={user.image} alt="Avatar" className="w-full h-full object-cover" />
+            ) : (
+                CurrentIcon && (
+                    <CurrentIcon 
+                        aria-hidden="true" 
+                        color="currentColor" 
+                        className={`size-5 ${isTheme && !isDark ? 'text-myorange-darker' : ''}`} 
+                    />
+                )
+            )}
+        </Button>
+    );
+
     return (
         <NavigationMenuItem className="text-mygrey-darker flex items-center justify-center">
-            <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                <Button
-                    variant="circle"
-                    size={isTheme || isAvatar ? "circle" : "default"}
-                    className={`${btnClasses} ${isAvatar ? 'p-0 overflow-hidden w-9 h-9' : ''}`}
-                    onClick={handleAction}
-                >
-                    {isAvatar && userImage ? (
-                        <img src={userImage} alt="Avatar" className="w-full h-full object-cover" />
-                    ) : (
-                        CurrentIcon && (
-                            <CurrentIcon 
-                                aria-hidden="true" 
-                                color="currentColor" 
-                                className={`size-5 ${isTheme && !isDark ? 'text-myorange-darker' : ''}`} 
-                            />
-                        )
-                    )}
-                </Button>
-            </NavigationMenuLink>
+            {isAvatar ? (
+                <Popover>
+                    <PopoverTrigger asChild>
+                        {buttonContent}
+                    </PopoverTrigger>
+                    <PopoverContent className="p-4 z-[105]" align="end">
+                        {user ? (
+                            <div className="flex flex-col space-y-2">
+                                <p className="text-sm font-medium leading-none text-myblack">{user.firstName} {user.lastName}</p>
+                                <p className="text-sm text-mygrey">{user.email}</p>
+                            </div>
+                        ) : (
+                            <p className="text-sm text-mygrey">Loading...</p>
+                        )}
+                    </PopoverContent>
+                </Popover>
+            ) : (
+                <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+                    {buttonContent}
+                </NavigationMenuLink>
+            )}
         </NavigationMenuItem>
     );
 };
@@ -93,7 +142,7 @@ const MenuContent = memo(function MenuContent({ onClick }: { onClick?: () => voi
             <NavigationMenu className="justify-self-end bottom-group">
                 <NavigationMenuList className="navigation-group button-group" >
                     {NAV_BUTTON.map(button => (
-                        <NavButtonItem key={button.id} button={button} theme={theme} onClick={onClick} userImage={user?.image} />
+                        <NavButtonItem key={button.id} button={button} theme={theme} onClick={onClick} user={user} />
                     ))}
                 </NavigationMenuList>
             </NavigationMenu>

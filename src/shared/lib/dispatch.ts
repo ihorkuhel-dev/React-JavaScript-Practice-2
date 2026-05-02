@@ -1,4 +1,4 @@
-type AppEvents = {
+export type AppEvents = {
     'logout': undefined;
     'switch-theme': undefined;
     'open-user': undefined;

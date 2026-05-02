@@ -20,7 +20,11 @@ export const GlobalListener = () => {
         });
 
         const unsubscribeTools = appDispatch.subscribe('tools', () => {
-            toast.info('Инструменты в разработке');
+            toast.info('Tools in development', {
+                action: {
+                    label: "Undo",
+                    onClick: () => console.log("Undo"),
+                }});
         });
 
         return () => {
