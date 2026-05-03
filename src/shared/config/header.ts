@@ -6,6 +6,7 @@ import {LogOutIcon} from "@/shared/assets/LogOutIcon.tsx";
 import {SunIcon} from "@/shared/assets/SunIcon.tsx";
 import type {FC, SVGProps} from "react";
 import {ToolsIcon} from "@/shared/assets/ToolsIcon.tsx";
+import type {AppEvents} from "@/shared/lib/dispatch.ts";
 
 export interface INavLink {
     id: string | number;
@@ -17,7 +18,7 @@ export interface INavLink {
 export interface INavButton {
     id: string | number;
     description: string;
-    onClick?: string;
+    onClick?: keyof AppEvents;
     icon:  FC<SVGProps<SVGSVGElement>>;
 }
 

@@ -6,7 +6,6 @@ import {routeTree} from "@/routeTree.gen.ts";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import "@/shared/lib/dispatch.ts";
 import {ThemeProvider} from "@/shared/lib/ThemeContext.tsx";
-import {GlobalListener} from "@/app/GlobalListener.tsx";
 
 const queryClient = new QueryClient({
 });
@@ -19,7 +18,6 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
       <ThemeProvider>
           <QueryClientProvider client={queryClient}>
-              <GlobalListener />
               <RouterProvider router={router} />
           </QueryClientProvider>
       </ThemeProvider>
