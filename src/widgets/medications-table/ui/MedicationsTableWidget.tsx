@@ -1,4 +1,4 @@
-import { useProducts, type GetProductsParams, type Product } from "@/features/medicine/api/medicineApi.ts";
+import { useProducts, type GetProductsParams } from "@/features/medicine/api/medicineApi.ts";
 import { useMemo } from "react";
 import { flexRender, getCoreRowModel, useReactTable, type ColumnDef } from "@tanstack/react-table";
 import {
@@ -15,12 +15,8 @@ import { useUrlState } from "@/shared/lib/useUrlState.ts";
 import { ArrowDownIcon, ArrowUpIcon, ArrowUpDownIcon } from "lucide-react";
 import MedicationPagination from "./MedicationPagination.tsx";
 import { Skeleton } from "@/shared/ui/skeleton.tsx";
-
-export type TableProduct = Product & {
-    success_reaction: boolean;
-    process: [number, number];
-    status: [number, number, number];
-};
+import { mapProductToTableData, type TableProduct } from "../lib/simulateData.ts";
+import { useCallback } from "react";
 
 export function MedicationsTableWidget() {
     const { searchParams, sorting, setSorting } = useUrlState();
@@ -79,25 +75,7 @@ export function MedicationsTableWidget() {
 
     const tableData = useMemo<TableProduct[]>(() => {
         if (!data?.products) return []
-
-        return data.products.map(item => {
-            const baseVal = typeof item.id === 'number' ? item.id : parseInt(String(item.id), 10) || 1;
-            const processVal = (baseVal * 17) % 100;
-
-            return {
-                ...item,
-                success_reaction: baseVal % 2 === 0,
-                process: [
-                    processVal,
-                    processVal + 100
-                ] as [number, number],
-                status: [
-                    (baseVal * 3) % 10,
-                    (baseVal * 5) % 10,
-                    (baseVal * 7) % 10
-                ] as [number, number, number],
-            }
-        })
+        return data.products.map(mapProductToTableData);
     }, [data])
 
     const table = useReactTable({
@@ -111,9 +89,15 @@ export function MedicationsTableWidget() {
         manualSorting: true,
     })
 
-    const handleClick = (id: number | string) => {
-        void navigate({ to: `/medications/${id}` });
-    }
+    const handleRowClick = useCallback((e: React.MouseEvent<HTMLTableSectionElement>) => {
+        const target = e.target as HTMLElement;
+        const row = target.closest('tr');
+        if (!row) return;
+        const id = row.getAttribute('data-id');
+        if (id)
+            void navigate({ to: `/medications/${id}` });
+
+    }, [navigate]);
 
     return (
         <>
@@ -149,9 +133,9 @@ export function MedicationsTableWidget() {
                         </TableRow >
                     ))}
                 </TableHeader>
-                <TableBody>
+                <TableBody onClick={handleRowClick}>
                     {isLoading ? (
-                        Array.from({ length: 10 }).map((_, rowIndex) => (
+                        Array.from({ length: 30 }).map((_, rowIndex) => (
                             <TableRow key={rowIndex}>
                                 {columns.map((_, colIndex) => (
                                     <TableCell key={colIndex}>
@@ -166,7 +150,7 @@ export function MedicationsTableWidget() {
 
                             return (
                                 <TableRow key={row.id}
-                                    onClick={() => handleClick(productId)}
+                                    data-id={productId}
                                     className="cursor-pointer"
                                 >
                                     {row.getVisibleCells().map((cell) => (
