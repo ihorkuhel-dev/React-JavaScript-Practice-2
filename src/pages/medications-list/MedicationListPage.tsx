@@ -14,6 +14,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { useUrlState } from "@/shared/lib/useUrlState.ts";
 import { ArrowDownIcon, ArrowUpIcon, ArrowUpDownIcon } from "lucide-react";
 import MedicationPagination from "@/pages/medications-list/ui/MedicationPagination.tsx";
+import { Skeleton } from "@/shared/ui/skeleton.tsx";
 
 export type TableProduct = Product & {
     success_reaction: boolean;
@@ -42,7 +43,7 @@ function MedicationListPage() {
         return params;
     }, [searchParams.sortBy, searchParams.order, searchParams.page]);
 
-    const { data } = useProducts(queryParams);
+    const { data, isLoading } = useProducts(queryParams);
 
     const columns = useMemo<ColumnDef<TableProduct>[]>(() => [
         {
@@ -154,22 +155,34 @@ function MedicationListPage() {
                     ))}
                 </TableHeader>
                 <TableBody>
-                    {table.getRowModel().rows.map((row) => {
-                        const productId = row.original.id;
-
-                        return (
-                            <TableRow key={row.id}
-                                onClick={() => handleClick(productId)}
-                                className="cursor-pointer"
-                            >
-                                {row.getVisibleCells().map((cell) => (
-                                    <TableCell key={cell.id}>
-                                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    {isLoading ? (
+                        Array.from({ length: 10 }).map((_, rowIndex) => (
+                            <TableRow key={rowIndex}>
+                                {columns.map((_, colIndex) => (
+                                    <TableCell key={colIndex}>
+                                        <Skeleton className="h-8 w-full" />
                                     </TableCell>
                                 ))}
                             </TableRow>
-                        )
-                    })}
+                        ))
+                    ) : (
+                        table.getRowModel().rows.map((row) => {
+                            const productId = row.original.id;
+
+                            return (
+                                <TableRow key={row.id}
+                                    onClick={() => handleClick(productId)}
+                                    className="cursor-pointer"
+                                >
+                                    {row.getVisibleCells().map((cell) => (
+                                        <TableCell key={cell.id}>
+                                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                        </TableCell>
+                                    ))}
+                                </TableRow>
+                            )
+                        })
+                    )}
                 </TableBody>
             </Table>
 

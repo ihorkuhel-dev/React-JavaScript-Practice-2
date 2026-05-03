@@ -10,6 +10,7 @@ import {toast} from "sonner";
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover.tsx";
 import { appDispatch } from "@/shared/lib/dispatch.ts";
 import { MedicationCalendarPopover } from "@/pages/medication-details/ui/MedicationCalendarPopover.tsx";
+import { Skeleton } from "@/shared/ui/skeleton.tsx";
 
 export function MedicationPage() {
 
@@ -18,6 +19,7 @@ export function MedicationPage() {
 
     const {
         data: productData,
+        isLoading
     } = useProductById(id, true);
 
     const handleStartProcess = () => {
@@ -37,8 +39,17 @@ export function MedicationPage() {
             <div className="medication-info-block">
                 <div className="bg-mywhite border-mygrey-lighter base-info">
                     <div>
-                        <h1 className="text-3xl font-semibold text-myblack mb-2">{productData?.title}</h1>
-                        <p className="text-sm font-medium text-mygrey">{productData?.brand}</p>
+                        {isLoading ? (
+                            <>
+                                <Skeleton className="h-9 w-3/4 mb-2" />
+                                <Skeleton className="h-5 w-1/4" />
+                            </>
+                        ) : (
+                            <>
+                                <h1 className="text-3xl font-semibold text-myblack mb-2">{productData?.title}</h1>
+                                <p className="text-sm font-medium text-mygrey">{productData?.brand}</p>
+                            </>
+                        )}
                     </div>
                     <div className="card-block border-mygrey-lighter ">
                         <div className="card">
@@ -48,9 +59,9 @@ export function MedicationPage() {
                             </span>
                                 <h3 className="text-lg font-semibold">Location</h3>
                             </div>
+                                <p className="text-mygrey text-sm font-medium">434 Rockaway Ave, ,BrooklynNew York,
+                                    11212-5636</p>
 
-                            <p className="text-mygrey text-sm font-medium">434 Rockaway Ave, ,BrooklynNew York,
-                                11212-5636</p>
                         </div>
                         <div className="card">
                             <div className="flex gap-2 items-center">
@@ -59,19 +70,26 @@ export function MedicationPage() {
                             </span>
                                 <h3 className="text-lg font-semibold">Date & Time</h3>
                             </div>
-
-                            <p className="text-mygrey text-sm font-medium">28th June - 2nd July 2022
-                                10 am - 4 pm Eastern Daylight Time </p>
+                                <p className="text-mygrey text-sm font-medium">28th June - 2nd July 2022
+                                    10 am - 4 pm Eastern Daylight Time </p>
                         </div>
                     </div>
                     <div className="flex gap-4 max-sm:flex-col ">
-                        <Button className="flex-1 max-sm:flex-initial" onClick={handleStartProcess}>Start Process</Button>
-                        <MedicationCalendarPopover onAdd={handleAddToCalendar} />
+                                <Button className="flex-1 max-sm:flex-initial" onClick={handleStartProcess}>Start Process</Button>
+                                <MedicationCalendarPopover onAdd={handleAddToCalendar} />
                     </div>
                 </div>
                 <div className="about-block">
                     <h2 className="text-3xl font-semibold text-myblack">About this event</h2>
-                    <p className="text-sm font-medium text-mygrey">{productData?.description}</p>
+                    {isLoading ? (
+                        <div className="flex flex-col gap-2 mt-4">
+                            <Skeleton className="h-4 w-full" />
+                            <Skeleton className="h-4 w-5/6" />
+                            <Skeleton className="h-4 w-4/6" />
+                        </div>
+                    ) : (
+                        <p className="text-sm font-medium text-mygrey">{productData?.description}</p>
+                    )}
                 </div>
             </div>
             <aside className='medication-aside border-mygrey-lighter'>
@@ -81,7 +99,7 @@ export function MedicationPage() {
                 </div>
                 <div className="flex flex-col gap-4">
                     <h3 className="text-2xl font-semibold">Location</h3>
-                    <MedicationMap/>
+                    {isLoading ? <Skeleton className="w-full h-[400px]" /> : <MedicationMap/>}
                     <address className="flex gap-4">
                         <p className="text-sm font-medium text-myblack">434 Rockaway Ave, 11212-5636</p>
                         <p className="text-sm font-medium text-mygrey">Brooklyn New York</p>
@@ -104,7 +122,12 @@ export function MedicationPage() {
                 <div className="flex flex-col gap-4">
                     <h3 className="text-2xl font-semibold">Tags</h3>
                     <div className="flex gap-4 ">
-                        {productData?.tags ? (
+                        {isLoading ? (
+                            <>
+                                <Skeleton className="h-6 w-20 rounded-full" />
+                                <Skeleton className="h-6 w-24 rounded-full" />
+                            </>
+                        ) : productData?.tags ? (
                             productData?.tags.map(tag => (
                                 <Badge key={tag} variant="secondary" className="capitalize">{tag}</Badge>
                             ))

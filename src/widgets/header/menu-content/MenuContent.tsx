@@ -16,6 +16,7 @@ import {memo} from "react";
 import { useGetCurrentUser, type User } from "@/features/auth/api/authApi.ts";
 import { toast } from "sonner";
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover.tsx";
+import { Skeleton } from "@/shared/ui/skeleton.tsx";
 
 const NavLinkItem = ({ link, onClick }: { link: typeof NAV_LINK[0], onClick?: () => void }) => {
     const Icon = link.icon;
@@ -54,7 +55,7 @@ const NavLinkItem = ({ link, onClick }: { link: typeof NAV_LINK[0], onClick?: ()
     );
 };
 
-const NavButtonItem = ({ button, theme, onClick, user }: { button: typeof NAV_BUTTON[0], theme: string, onClick?: () => void, user?: User }) => {
+const NavButtonItem = ({ button, theme, onClick, user, isLoading }: { button: typeof NAV_BUTTON[0], theme: string, onClick?: () => void, user?: User, isLoading?: boolean }) => {
     const isTheme = button.onClick === 'switch-theme';
     const isAvatar = button.id === 'btn-avatar';
     const isDark = theme === 'dark';
@@ -82,7 +83,9 @@ const NavButtonItem = ({ button, theme, onClick, user }: { button: typeof NAV_BU
             className={`${btnClasses} ${isAvatar ? 'p-0 overflow-hidden w-9 h-9' : ''}`}
             onClick={!isAvatar ? handleAction : undefined}
         >
-            {isAvatar && user?.image ? (
+            {isAvatar && isLoading ? (
+                <Skeleton className="w-9 h-9 rounded-full" />
+            ) : isAvatar && user?.image ? (
                 <img src={user.image} alt="Avatar" className="w-full h-full object-cover" />
             ) : (
                 CurrentIcon && (
@@ -104,13 +107,18 @@ const NavButtonItem = ({ button, theme, onClick, user }: { button: typeof NAV_BU
                         {buttonContent}
                     </PopoverTrigger>
                     <PopoverContent className="p-4 z-[105]" align="end">
-                        {user ? (
+                        {isLoading ? (
+                            <div className="flex flex-col space-y-2">
+                                <Skeleton className="h-4 w-[150px]" />
+                                <Skeleton className="h-3 w-[100px]" />
+                            </div>
+                        ) : user ? (
                             <div className="flex flex-col space-y-2">
                                 <p className="text-sm font-medium leading-none text-myblack">{user.firstName} {user.lastName}</p>
                                 <p className="text-sm text-mygrey">{user.email}</p>
                             </div>
                         ) : (
-                            <p className="text-sm text-mygrey">Loading...</p>
+                            <p className="text-sm text-mygrey">Not logged in</p>
                         )}
                     </PopoverContent>
                 </Popover>
@@ -125,7 +133,7 @@ const NavButtonItem = ({ button, theme, onClick, user }: { button: typeof NAV_BU
 
 const MenuContent = memo(function MenuContent({ onClick }: { onClick?: () => void }) {
     const { theme } = useTheme();
-    const { data: user } = useGetCurrentUser();
+    const { data: user, isLoading } = useGetCurrentUser();
 
     return (
         <>
@@ -142,7 +150,7 @@ const MenuContent = memo(function MenuContent({ onClick }: { onClick?: () => voi
             <NavigationMenu className="justify-self-end bottom-group">
                 <NavigationMenuList className="navigation-group button-group" >
                     {NAV_BUTTON.map(button => (
-                        <NavButtonItem key={button.id} button={button} theme={theme} onClick={onClick} user={user} />
+                        <NavButtonItem key={button.id} button={button} theme={theme} onClick={onClick} user={user} isLoading={isLoading} />
                     ))}
                 </NavigationMenuList>
             </NavigationMenu>
