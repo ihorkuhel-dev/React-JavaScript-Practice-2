@@ -4,13 +4,13 @@ import './styles/global.css'
 import {createRouter, RouterProvider} from "@tanstack/react-router";
 import {routeTree} from "@/routeTree.gen.ts";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
-import "@/shared/lib/dispatch.ts";
+
 import {ThemeProvider} from "@/shared/lib/ThemeContext.tsx";
 
 const queryClient = new QueryClient({
 });
 
-const router = createRouter({
+export const router = createRouter({
     routeTree
 })
 

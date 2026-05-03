@@ -1,8 +1,9 @@
-import { getAccessToken, getRefreshToken, setTokens } from '../lib/cookies'
-import { appDispatch } from '../lib/dispatch'
-
+import { getAccessToken, getRefreshToken, setTokens, removeTokens } from '../lib/cookies'
+import { router } from '@/app/main.tsx'
 
 const API_URL = 'https://dummyjson.com'
+
+let refreshPromise: Promise<void> | null = null;
 
 interface FetchOptions extends Omit<RequestInit, 'body'> {
     params?: Record<string, string | number>
@@ -51,31 +52,44 @@ export const apiClient = async <T>(endpoint: string, options: FetchOptions = {},
     const response = await fetch(url.toString(), config)
 
     if (response.status === 401 && !_isRetry) {
-        const refreshToken = getRefreshToken()
-        if (!refreshToken) {
-            appDispatch.dispatch('logout')
-            throw new Error('Unauthorized')
+        if (!refreshPromise) {
+            refreshPromise = (async () => {
+                const refreshToken = getRefreshToken()
+                if (!refreshToken) {
+                    removeTokens()
+                    void router.navigate({ to: '/login' })
+                    throw new Error('Unauthorized')
+                }
+
+                try {
+                    const refreshResponse = await fetch(`${API_URL}/auth/refresh`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ refreshToken, expiresInMins: 30 }),
+                    })
+
+                    if (!refreshResponse.ok) {
+                        throw new Error('Refresh token failed')
+                    }
+
+                    const data = await refreshResponse.json()
+                    setTokens(data.accessToken, data.refreshToken)
+                } catch (error) {
+                    removeTokens()
+                    void router.navigate({ to: '/login' })
+                    console.log(error)
+                    throw new UnauthorizedError()
+                } finally {
+                    refreshPromise = null;
+                }
+            })();
         }
 
         try {
-            const refreshResponse = await fetch(`${API_URL}/auth/refresh`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ refreshToken, expiresInMins: 30 }),
-            })
-
-            if (!refreshResponse.ok) {
-                throw new Error('Refresh token failed')
-            }
-
-            const data = await refreshResponse.json()
-            setTokens(data.accessToken, data.refreshToken)
-
-            return await apiClient<T>(endpoint, options, true)
+            await refreshPromise;
+            return await apiClient<T>(endpoint, options, true);
         } catch (error) {
-            appDispatch.dispatch('logout')
-            console.log(error)
-            throw new UnauthorizedError()
+            throw new UnauthorizedError();
         }
     }
 

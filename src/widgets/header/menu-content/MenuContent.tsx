@@ -8,7 +8,8 @@ import {
 import {Link, useLocation} from "@tanstack/react-router";
 import {NAV_BUTTON, NAV_LINK} from "@/shared/config/header.ts";
 import {Button} from "@/shared/ui/button.tsx";
-import { appDispatch } from '@/shared/lib/dispatch.ts'
+import { removeTokens } from "@/shared/lib/cookies.ts";
+import { router } from "@/app/main.tsx";
 import {useTheme} from "@/shared/lib/ThemeContext.tsx";
 import { MoonIcon } from "@/shared/assets/MoonIcon.tsx";
 import { SunIcon } from "@/shared/assets/SunIcon.tsx";
@@ -55,14 +56,24 @@ const NavLinkItem = ({ link, onClick }: { link: typeof NAV_LINK[0], onClick?: ()
     );
 };
 
-const NavButtonItem = ({ button, theme, onClick, user, isLoading }: { button: typeof NAV_BUTTON[0], theme: string, onClick?: () => void, user?: User, isLoading?: boolean }) => {
+const NavButtonItem = ({ button, theme, toggleTheme, onClick, user, isLoading }: { button: typeof NAV_BUTTON[0], theme: string, toggleTheme: () => void, onClick?: () => void, user?: User, isLoading?: boolean }) => {
     const isTheme = button.onClick === 'switch-theme';
     const isAvatar = button.id === 'btn-avatar';
     const isDark = theme === 'dark';
     
     const handleAction = () => {
-        if (button.onClick) {
-            appDispatch.dispatch(button.onClick);
+        if (button.onClick === 'switch-theme') {
+            toggleTheme();
+        } else if (button.onClick === 'logout') {
+            removeTokens();
+            void router.navigate({ to: '/login' });
+        } else if (button.onClick === 'tools') {
+            toast.info('Tools in development', {
+                action: {
+                    label: "Undo",
+                    onClick: () => console.log("Undo"),
+                }
+            });
         }
         if (onClick && (button.onClick === 'logout' || isAvatar)) onClick();
     };
@@ -132,7 +143,7 @@ const NavButtonItem = ({ button, theme, onClick, user, isLoading }: { button: ty
 };
 
 const MenuContent = memo(function MenuContent({ onClick }: { onClick?: () => void }) {
-    const { theme } = useTheme();
+    const { theme, toggleTheme } = useTheme();
     const { data: user, isLoading } = useGetCurrentUser();
 
     return (
@@ -150,7 +161,7 @@ const MenuContent = memo(function MenuContent({ onClick }: { onClick?: () => voi
             <NavigationMenu className="justify-self-end bottom-group">
                 <NavigationMenuList className="navigation-group button-group" >
                     {NAV_BUTTON.map(button => (
-                        <NavButtonItem key={button.id} button={button} theme={theme} onClick={onClick} user={user} isLoading={isLoading} />
+                        <NavButtonItem key={button.id} button={button} theme={theme} toggleTheme={toggleTheme} onClick={onClick} user={user} isLoading={isLoading} />
                     ))}
                 </NavigationMenuList>
             </NavigationMenu>
