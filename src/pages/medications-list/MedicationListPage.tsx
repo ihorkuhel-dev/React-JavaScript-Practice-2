@@ -12,6 +12,7 @@ import ProcessTracker from "@/pages/medications-list/ui/ProcessTracker.tsx";
 import StatusTracker from "@/pages/medications-list/ui/StatusTracker.tsx";
 import { useNavigate } from "@tanstack/react-router";
 import { useUrlState } from "@/shared/lib/useUrlState.ts";
+import { ArrowDownIcon, ArrowUpIcon, ArrowUpDownIcon } from "lucide-react";
 import MedicationPagination from "@/pages/medications-list/ui/MedicationPagination.tsx";
 
 export type TableProduct = Product & {
@@ -127,12 +128,25 @@ function MedicationListPage() {
                             {headerGroup.headers.map((header) => (
                                 <TableHead key={header.id}
                                     onClick={header.column.getToggleSortingHandler()}
+                                    className={header.column.getCanSort() ? "cursor-pointer select-none hover:text-myblack" : ""}
                                 >
                                     {header.isPlaceholder
                                         ? null
-                                        : flexRender(
-                                            header.column.columnDef.header,
-                                            header.getContext()
+                                        : (
+                                            <div className="flex items-center gap-1">
+                                                {flexRender(
+                                                    header.column.columnDef.header,
+                                                    header.getContext()
+                                                )}
+                                                {header.column.getCanSort() && (
+                                                    <span className="w-4">
+                                                        {{
+                                                            asc: <ArrowUpIcon className="size-4" />,
+                                                            desc: <ArrowDownIcon className="size-4" />,
+                                                        }[header.column.getIsSorted() as string] ?? <ArrowUpDownIcon className="size-4 opacity-50" />}
+                                                    </span>
+                                                )}
+                                            </div>
                                         )}
                                 </TableHead>
                             ))}
