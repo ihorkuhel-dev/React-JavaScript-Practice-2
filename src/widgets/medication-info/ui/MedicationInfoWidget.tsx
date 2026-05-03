@@ -1,10 +1,11 @@
 import { GeoIcon } from "@/shared/assets/GeoIcon.tsx";
 import { Button } from "@/shared/ui/button.tsx";
 import { toast } from "sonner";
-import { appDispatch } from "@/shared/lib/dispatch.ts";
+import { openGoogleCalendar } from "@/pages/medication-details/lib/calendar.ts";
 import { MedicationCalendarPopover } from "@/pages/medication-details/ui/MedicationCalendarPopover.tsx";
 import { Skeleton } from "@/shared/ui/skeleton.tsx";
 import type { Product } from "@/features/medicine/api/medicineApi.ts";
+import { MEDICATION_MOCK_DATA } from "@/shared/config/mockData.ts";
 
 interface MedicationInfoWidgetProps {
     productData?: Product;
@@ -19,9 +20,8 @@ export function MedicationInfoWidget({ productData, isLoading }: MedicationInfoW
     const handleAddToCalendar = (startDate: Date, endDate: Date) => {
         const title = productData?.title || 'Taking medication';
         const description = productData?.description || '';
-        const location = '434 Rockaway Ave, Brooklyn New York, 11212-5636';
-
-        appDispatch.dispatch('add-to-calendar', { title, description, location, startDate, endDate });
+        const location = MEDICATION_MOCK_DATA.locationFull;
+        openGoogleCalendar(title, description, location, startDate, endDate);
     };
 
     return (
@@ -48,8 +48,7 @@ export function MedicationInfoWidget({ productData, isLoading }: MedicationInfoW
                             </span>
                             <h3 className="text-lg font-semibold">Location</h3>
                         </div>
-                        <p className="text-mygrey text-sm font-medium">434 Rockaway Ave, ,BrooklynNew York,
-                            11212-5636</p>
+                        <p className="text-mygrey text-sm font-medium">{MEDICATION_MOCK_DATA.locationFull}</p>
                     </div>
                     <div className="card">
                         <div className="flex gap-2 items-center">
@@ -58,8 +57,7 @@ export function MedicationInfoWidget({ productData, isLoading }: MedicationInfoW
                             </span>
                             <h3 className="text-lg font-semibold">Date & Time</h3>
                         </div>
-                        <p className="text-mygrey text-sm font-medium">28th June - 2nd July 2022
-                            10 am - 4 pm Eastern Daylight Time </p>
+                        <p className="text-mygrey text-sm font-medium">{MEDICATION_MOCK_DATA.dateTime}</p>
                     </div>
                 </div>
                 <div className="flex gap-4 max-sm:flex-col ">
