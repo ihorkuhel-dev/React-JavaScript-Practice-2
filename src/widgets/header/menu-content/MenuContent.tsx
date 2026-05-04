@@ -29,7 +29,7 @@ const NavLinkItem = memo(({ link, onClick }: { link: typeof NAV_LINK[0], onClick
             toast.warning('This page in development' , {
                 action: {
                     label: "Undo",
-                    onClick: () => console.log("Undo"),
+                    onClick: () => {},
                 }
             });
         } else if (link.to === location.pathname) {
@@ -37,7 +37,7 @@ const NavLinkItem = memo(({ link, onClick }: { link: typeof NAV_LINK[0], onClick
             toast.error('This is the same page', {
                 action: {
                     label: "Undo",
-                    onClick: () => console.log("Undo"),
+                    onClick: () => {},
                 }
             });
         }
@@ -71,7 +71,7 @@ const NavButtonItem = memo(({ button, theme, toggleTheme, onClick, user, isLoadi
             toast.info('Tools in development', {
                 action: {
                     label: "Undo",
-                    onClick: () => console.log("Undo"),
+                    onClick: () => {},
                 }
             });
         }

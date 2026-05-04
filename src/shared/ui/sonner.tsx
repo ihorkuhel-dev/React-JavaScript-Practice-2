@@ -15,7 +15,7 @@ const Toaster = ({ position = "top-center", ...props }: ToasterProps) => {
           <CircleCheckIcon className="size-4" />
         ),
         info: (
-          <InfoIcon className="size-4 bg-mywhite" />
+          <InfoIcon className="size-4" />
         ),
         warning: (
           <TriangleAlertIcon className="size-4" />
@@ -31,13 +31,13 @@ const Toaster = ({ position = "top-center", ...props }: ToasterProps) => {
         {
           "--normal-bg": "var(--white)",
           "--normal-text": "var(--black)",
-          "--normal-border": "var(--border)",
+          "--normal-border": "1px solid var(--grey-lighter)",
           "--border-radius": "4px",
         } as React.CSSProperties
       }
       toastOptions={{
         classNames: {
-          toast: "cn-toast bg-mywhite",
+          toast: "cn-toast bg-mywhite border border-mygrey-lighter",
         },
       }}
       {...props}
