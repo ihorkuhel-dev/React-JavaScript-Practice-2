@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { GeoIcon } from "@/shared/assets/GeoIcon.tsx";
 import { Button } from "@/shared/ui/button.tsx";
 import { toast } from "sonner";
@@ -5,7 +6,7 @@ import { openGoogleCalendar } from "@/pages/medication-details/lib/calendar.ts";
 import { MedicationCalendarPopover } from "@/pages/medication-details/ui/MedicationCalendarPopover.tsx";
 import { Skeleton } from "@/shared/ui/skeleton.tsx";
 import type { Product } from "@/features/medicine/api/medicineApi.ts";
-import { MEDICATION_MOCK_DATA } from "@/shared/config/mockData.ts";
+import {MEDICATION_MOCK_DATA} from "@/features/medicine/api/medication-mock-data.ts";
 
 interface MedicationInfoWidgetProps {
     productData?: Product;
@@ -13,16 +14,16 @@ interface MedicationInfoWidgetProps {
 }
 
 export function MedicationInfoWidget({ productData, isLoading }: MedicationInfoWidgetProps) {
-    const handleStartProcess = () => {
+    const handleStartProcess = useCallback(() => {
         toast.success('Processing product!');
-    };
+    }, []);
 
-    const handleAddToCalendar = (startDate: Date, endDate: Date) => {
+    const handleAddToCalendar = useCallback((startDate: Date, endDate: Date) => {
         const title = productData?.title || 'Taking medication';
         const description = productData?.description || '';
         const location = MEDICATION_MOCK_DATA.locationFull;
         openGoogleCalendar(title, description, location, startDate, endDate);
-    };
+    }, [productData?.title, productData?.description]);
 
     return (
         <div className="medication-info-block">

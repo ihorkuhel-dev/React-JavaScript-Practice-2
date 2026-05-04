@@ -1,9 +1,9 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { useLogin } from "../api/authApi";
 import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
+import {useLogin} from "@/features/auth/api/authApi.ts";
 
 const loginSchema = z.object({
     username: z.string().min(3, { message: "Minimum 3 symbols" }),

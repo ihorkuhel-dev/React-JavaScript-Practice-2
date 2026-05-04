@@ -1,5 +1,4 @@
 import { Link } from "@tanstack/react-router";
-import { LoginForm } from "@/features/auth/ui/LoginForm";
 import {
     Card,
     CardContent,
@@ -8,6 +7,7 @@ import {
     CardHeader,
     CardTitle,
 } from "@/shared/ui/card";
+import {LoginForm} from "@/pages/login/ui/LoginForm.tsx";
 
 export function LoginPage() {
     return (

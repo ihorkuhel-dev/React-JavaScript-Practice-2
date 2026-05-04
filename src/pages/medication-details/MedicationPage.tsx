@@ -1,8 +1,9 @@
 import {getRouteApi} from "@tanstack/react-router";
 import {useProductById} from "@/features/medicine/api/medicineApi.ts";
-import { MedicationInfoWidget } from "@/widgets/medication-info/ui/MedicationInfoWidget.tsx";
-import { MedicationAsideWidget } from "@/widgets/medication-aside/ui/MedicationAsideWidget.tsx";
+
 import './MedicationPage.scss'
+import {MedicationInfoWidget} from "@/pages/medication-details/ui/MedicationInfoWidget.tsx";
+import {MedicationAsideWidget} from "@/pages/medication-details/ui/MedicationAsideWidget.tsx";
 
 export function MedicationPage() {
     const routeApi = getRouteApi('/_main/medications/$id')

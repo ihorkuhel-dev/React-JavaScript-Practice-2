@@ -58,7 +58,7 @@ export default function Menu({isMobile}: { isMobile: boolean }) {
                 ref={menuRef}
                 className={`${isMobile ? 'mobile-menu border-l border-mygrey-lighter' : 'desktop-menu'} bg-mywhite`}
             >
-                <MenuContent onClick={isMobile ? closeMenu : undefined}/>
+                <MenuContent onClick={isMobile ? closeMenu : undefined} isMobile={isMobile} />
             </div>
         </header>
     )

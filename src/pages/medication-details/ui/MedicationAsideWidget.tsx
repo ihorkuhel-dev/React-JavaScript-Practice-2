@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { DirectionIcon } from "@/shared/assets/DeclineIcon.tsx";
 import { Badge } from "@/shared/ui/badge.tsx";
 import MedicationMap from "@/pages/medication-details/ui/MedicationMap.tsx";
@@ -5,7 +6,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover.tsx
 import { Button } from "@/shared/ui/button.tsx";
 import { Skeleton } from "@/shared/ui/skeleton.tsx";
 import type { Product } from "@/features/medicine/api/medicineApi.ts";
-import { MEDICATION_MOCK_DATA } from "@/shared/config/mockData.ts";
+import {MEDICATION_MOCK_DATA} from "@/features/medicine/api/medication-mock-data.ts";
 
 interface MedicationAsideWidgetProps {
     productData?: Product;
@@ -13,6 +14,13 @@ interface MedicationAsideWidgetProps {
 }
 
 export function MedicationAsideWidget({ productData, isLoading }: MedicationAsideWidgetProps) {
+    const handleOpenMap = useCallback((type: 'apple' | 'google') => {
+        const url = type === 'apple' 
+            ? `https://maps.apple.com/?q=${encodeURIComponent(MEDICATION_MOCK_DATA.locationFull)}`
+            : `https://maps.google.com/?q=${encodeURIComponent(MEDICATION_MOCK_DATA.locationFull)}`;
+        window.open(url, '_blank');
+    }, []);
+
     return (
         <aside className='medication-aside border-mygrey-lighter'>
             <div className="flex flex-col gap-4">
@@ -32,10 +40,10 @@ export function MedicationAsideWidget({ productData, isLoading }: MedicationAsid
                         <Button variant='secondary'><DirectionIcon color="currentColor"/> Get Directions</Button>
                     </PopoverTrigger>
                     <PopoverContent className="w-48 p-2 flex flex-col gap-1 z-[105]" align="end">
-                        <Button variant="ghost" className="justify-start w-full" onClick={() => window.open(`https://maps.apple.com/?q=${encodeURIComponent(MEDICATION_MOCK_DATA.locationFull)}`, '_blank')}>
+                        <Button variant="ghost" className="justify-start w-full" onClick={() => handleOpenMap('apple')}>
                             Apple Maps
                         </Button>
-                        <Button variant="ghost" className="justify-start w-full" onClick={() => window.open(`https://maps.google.com/?q=${encodeURIComponent(MEDICATION_MOCK_DATA.locationFull)}`, '_blank')}>
+                        <Button variant="ghost" className="justify-start w-full" onClick={() => handleOpenMap('google')}>
                             Google Maps
                         </Button>
                     </PopoverContent>

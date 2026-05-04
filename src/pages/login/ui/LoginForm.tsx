@@ -8,7 +8,7 @@ import {
     InputGroupInput
 } from "@/shared/ui/input-group";
 import { Button } from "@/shared/ui/button";
-import { useLoginForm } from "@/features/auth/lib/useLoginForm";
+import {useLoginForm} from "@/pages/login/lib/useLoginForm.ts";
 
 export function LoginForm() {
     const {

@@ -1,4 +1,4 @@
-import { MedicationsTableWidget } from "@/widgets/medications-table/ui/MedicationsTableWidget.tsx";
+import {MedicationsTableWidget} from "@/pages/medications-list/ui/MedicationsTableWidget.tsx";
 
 function MedicationListPage() {
     return (

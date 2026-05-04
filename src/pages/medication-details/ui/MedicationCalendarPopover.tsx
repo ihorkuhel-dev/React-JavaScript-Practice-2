@@ -10,7 +10,7 @@ import {
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover"
 import { Button } from "@/shared/ui/button"
 import { CalendarIcon } from "@/shared/assets/CalendarIcon.tsx"
-import {useState} from "react";
+import {useState, memo} from "react";
 
 function combineDateAndTime(date: Date, timeString: string): Date {
   const [hours, minutes, seconds] = timeString.split(':').map(Number);
@@ -19,7 +19,7 @@ function combineDateAndTime(date: Date, timeString: string): Date {
   return newDate;
 }
 
-export function MedicationCalendarPopover({ onAdd }: { onAdd: (start: Date, end: Date) => void }) {
+export const MedicationCalendarPopover = memo(function MedicationCalendarPopover({ onAdd }: { onAdd: (start: Date, end: Date) => void }) {
   const [date, setDate] =  useState<Date | undefined>(new Date())
   const [startTime, setStartTime] = useState("10:00")
   const [endTime, setEndTime] = useState("11:00")
@@ -90,4 +90,4 @@ export function MedicationCalendarPopover({ onAdd }: { onAdd: (start: Date, end:
       </PopoverContent>
     </Popover>
   )
-}
+});
