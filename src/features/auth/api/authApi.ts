@@ -1,7 +1,7 @@
 import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
 import {apiClient, UnauthorizedError} from "@/shared/api/base.ts";
-import {setTokens} from "@/shared/lib/cookies.ts";
-import { appDispatch } from "@/shared/lib/dispatch.ts";
+import {setTokens, removeTokens} from "@/shared/lib/cookies.ts";
+import { router } from "@/app/main.tsx";
 
 
 export interface User {
@@ -56,7 +56,8 @@ const getCurrentUserFn = async (): Promise<User> => {
 };
 
 const logoutFn = async (): Promise<void> => {
-  appDispatch.dispatch('logout');
+  removeTokens();
+  void router.navigate({ to: '/login' });
 };
 
 export const useLogin = () => {

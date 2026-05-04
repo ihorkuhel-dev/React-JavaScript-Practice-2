@@ -1,9 +1,9 @@
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import {useEffect, useRef} from "react";
+import {useEffect, useRef, memo} from "react";
 import {useTheme} from "@/shared/lib/ThemeContext.tsx";
 
-export default function MedicationMap() {
+export default memo(function MedicationMap() {
 
     const mapRef = useRef<HTMLDivElement>(null);
     const mapInstanceRef = useRef<L.Map | null>(null);
@@ -47,4 +47,4 @@ export default function MedicationMap() {
             style={{ height: '400px', width: '100%' , zIndex: 5 }}
         />
     )
-}
+});

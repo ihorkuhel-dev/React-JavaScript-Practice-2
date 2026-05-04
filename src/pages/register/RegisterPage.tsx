@@ -1,6 +1,6 @@
 import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@/shared/ui/card.tsx";
 import {Link} from "@tanstack/react-router";
-import {RegisterForm} from "@/features/auth/ui/RegisterForm.tsx";
+import {RegisterForm} from "@/pages/register/ui/RegisterForm.tsx";
 
 export function RegisterPage() {
     return (

@@ -8,27 +8,28 @@ import {
 import {Link, useLocation} from "@tanstack/react-router";
 import {NAV_BUTTON, NAV_LINK} from "@/shared/config/header.ts";
 import {Button} from "@/shared/ui/button.tsx";
-import { appDispatch } from '@/shared/lib/dispatch.ts'
+import { removeTokens } from "@/shared/lib/cookies.ts";
+import { router } from "@/app/main.tsx";
 import {useTheme} from "@/shared/lib/ThemeContext.tsx";
 import { MoonIcon } from "@/shared/assets/MoonIcon.tsx";
 import { SunIcon } from "@/shared/assets/SunIcon.tsx";
-import {memo} from "react";
+import {memo, useCallback} from "react";
 import { useGetCurrentUser, type User } from "@/features/auth/api/authApi.ts";
 import { toast } from "sonner";
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover.tsx";
 import { Skeleton } from "@/shared/ui/skeleton.tsx";
 
-const NavLinkItem = ({ link, onClick }: { link: typeof NAV_LINK[0], onClick?: () => void }) => {
+const NavLinkItem = memo(({ link, onClick }: { link: typeof NAV_LINK[0], onClick?: () => void }) => {
     const Icon = link.icon;
     const location = useLocation();
 
-    const handleClick = (e: React.MouseEvent) => {
+    const handleClick = useCallback((e: React.MouseEvent) => {
         if (link.to === '#') {
             e.preventDefault();
             toast.warning('This page in development' , {
                 action: {
                     label: "Undo",
-                    onClick: () => console.log("Undo"),
+                    onClick: () => {},
                 }
             });
         } else if (link.to === location.pathname) {
@@ -36,12 +37,12 @@ const NavLinkItem = ({ link, onClick }: { link: typeof NAV_LINK[0], onClick?: ()
             toast.error('This is the same page', {
                 action: {
                     label: "Undo",
-                    onClick: () => console.log("Undo"),
+                    onClick: () => {},
                 }
             });
         }
         if (onClick) onClick();
-    };
+    }, [link.to, location.pathname, onClick]);
 
     return (
         <NavigationMenuItem>
@@ -53,19 +54,29 @@ const NavLinkItem = ({ link, onClick }: { link: typeof NAV_LINK[0], onClick?: ()
             </NavigationMenuLink>
         </NavigationMenuItem>
     );
-};
+});
 
-const NavButtonItem = ({ button, theme, onClick, user, isLoading }: { button: typeof NAV_BUTTON[0], theme: string, onClick?: () => void, user?: User, isLoading?: boolean }) => {
+const NavButtonItem = memo(({ button, theme, toggleTheme, onClick, user, isLoading, isMobile }: { button: typeof NAV_BUTTON[0], theme: string, toggleTheme: () => void, onClick?: () => void, user?: User, isLoading?: boolean, isMobile:boolean }) => {
     const isTheme = button.onClick === 'switch-theme';
     const isAvatar = button.id === 'btn-avatar';
     const isDark = theme === 'dark';
     
-    const handleAction = () => {
-        if (button.onClick) {
-            appDispatch.dispatch(button.onClick);
+    const handleAction = useCallback(() => {
+        if (button.onClick === 'switch-theme') {
+            toggleTheme();
+        } else if (button.onClick === 'logout') {
+            removeTokens();
+            void router.navigate({ to: '/login' });
+        } else if (button.onClick === 'tools') {
+            toast.info('Tools in development', {
+                action: {
+                    label: "Undo",
+                    onClick: () => {},
+                }
+            });
         }
         if (onClick && (button.onClick === 'logout' || isAvatar)) onClick();
-    };
+    }, [button.onClick, toggleTheme, onClick, isAvatar]);
 
     const CurrentIcon = isTheme ? (isDark ? MoonIcon : SunIcon) : button.icon;
 
@@ -102,11 +113,12 @@ const NavButtonItem = ({ button, theme, onClick, user, isLoading }: { button: ty
     return (
         <NavigationMenuItem className="text-mygrey-darker flex items-center justify-center">
             {isAvatar ? (
-                <Popover>
+                <Popover >
                     <PopoverTrigger asChild>
                         {buttonContent}
                     </PopoverTrigger>
-                    <PopoverContent className="p-4 z-[105]" align="end">
+                    <PopoverContent className="p-4 z-[105]" align="end" side={isMobile ? 'top' : 'top'}>
+
                         {isLoading ? (
                             <div className="flex flex-col space-y-2">
                                 <Skeleton className="h-4 w-[150px]" />
@@ -129,10 +141,10 @@ const NavButtonItem = ({ button, theme, onClick, user, isLoading }: { button: ty
             )}
         </NavigationMenuItem>
     );
-};
+});
 
-const MenuContent = memo(function MenuContent({ onClick }: { onClick?: () => void }) {
-    const { theme } = useTheme();
+const MenuContent = memo(function MenuContent({ onClick, isMobile }: { onClick?: () => void, isMobile:boolean }) {
+    const { theme, toggleTheme } = useTheme();
     const { data: user, isLoading } = useGetCurrentUser();
 
     return (
@@ -150,7 +162,7 @@ const MenuContent = memo(function MenuContent({ onClick }: { onClick?: () => voi
             <NavigationMenu className="justify-self-end bottom-group">
                 <NavigationMenuList className="navigation-group button-group" >
                     {NAV_BUTTON.map(button => (
-                        <NavButtonItem key={button.id} button={button} theme={theme} onClick={onClick} user={user} isLoading={isLoading} />
+                        <NavButtonItem key={button.id} button={button} theme={theme} toggleTheme={toggleTheme} onClick={onClick} user={user} isLoading={isLoading}  isMobile={isMobile}/>
                     ))}
                 </NavigationMenuList>
             </NavigationMenu>
