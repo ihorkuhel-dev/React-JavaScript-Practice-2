@@ -93,6 +93,7 @@ const NavButtonItem = memo(({ button, theme, toggleTheme, onClick, user, isLoadi
             size={isTheme || isAvatar ? "circle" : "default"}
             className={`${btnClasses} ${isAvatar ? 'p-0 overflow-hidden w-9 h-9' : ''}`}
             onClick={!isAvatar ? handleAction : undefined}
+            aria-label={button.description}
         >
             {isAvatar && isLoading ? (
                 <Skeleton className="w-9 h-9 rounded-full" />

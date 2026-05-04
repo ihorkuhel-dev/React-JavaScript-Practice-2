@@ -47,6 +47,8 @@ export default function Menu({isMobile}: { isMobile: boolean }) {
                 ref={buttonRef}
                 className="absolute top-5 right-5 z-51 navigation-button"
                 onClick={handleClick}
+                name="menu-button"
+                aria-label="Toggle menu"
             >
                 <span className="bg-white rounded-sm"/>
                 <span className="bg-white rounded-sm"/>
