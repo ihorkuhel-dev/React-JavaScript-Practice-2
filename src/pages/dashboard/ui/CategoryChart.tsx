@@ -12,7 +12,7 @@ interface CategoryChartProps {
 export default memo(function CategoryChart({ category }: CategoryChartProps) {
     return (
         <div className="p-4 bg-mywhite rounded-md border border-mygrey-dark inline-flex flex-col justify-start items-start gap-9">
-            <div className="card_header text-left flex gap-5">
+            <div className="card_header text-left flex gap-5 w-full">
                 <div>
                     <div className="flex items-center gap-3.5">
                         <h3 className="text-xl font-semibold text-myblack mb-1">{category.title}</h3>
@@ -23,7 +23,7 @@ export default memo(function CategoryChart({ category }: CategoryChartProps) {
                     <p className="text-sm text-mygrey mb-4 ">{category.subTitle}</p>
                 </div>
                 {category.count &&
-                    <span className="text-lg font-semibold">{category.count}</span>
+                    <span className="text-lg font-semibold ml-auto">{category.count}</span>
                 }
             </div>
 

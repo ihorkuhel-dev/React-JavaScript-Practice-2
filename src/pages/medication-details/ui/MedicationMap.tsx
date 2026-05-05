@@ -2,6 +2,8 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import {useEffect, useRef, memo} from "react";
 import {useTheme} from "@/shared/lib/ThemeContext.tsx";
+import { renderToStaticMarkup } from 'react-dom/server';
+import { MapMarkerIcon } from "@/shared/assets/MapMarkerIcon.tsx";
 
 export default memo(function MedicationMap() {
 
@@ -27,7 +29,15 @@ export default memo(function MedicationMap() {
                 }
             ).addTo(map);
 
-            L.marker([51.505, -0.09], {alt: 'Warsaw'})
+            const iconHtml = renderToStaticMarkup(<MapMarkerIcon color="currentColor"  />);
+            const customIcon = L.divIcon({
+                html: iconHtml,
+                className: '',
+                iconSize: [24, 24],
+                iconAnchor: [12, 24],
+            });
+
+            L.marker([51.505, -0.09], {icon: customIcon, alt: 'Warsaw'})
                 .addTo(map)
 
             mapInstanceRef.current = map;
@@ -42,7 +52,7 @@ export default memo(function MedicationMap() {
     }, [styleApi])
 
     return (
-        <div
+        <div className="text-accent"
             ref={mapRef}
             style={{ height: '400px', width: '100%' , zIndex: 5 }}
         />
