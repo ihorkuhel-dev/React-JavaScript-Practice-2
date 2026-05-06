@@ -26,11 +26,12 @@ export default defineConfig(({ mode }) => ({
     },
     build: {
         target: 'esnext',
+        chunkSizeWarningLimit: 1000,
         rollupOptions: {
             output: {
                 manualChunks(id) {
                     if (id.includes('node_modules')) {
-                        if (id.includes('react')) return 'vendor-react';
+                        if (id.includes('node_modules/react/') || id.includes('node_modules/react-dom/')) return 'vendor-react';
                         if (id.includes('@tanstack')) return 'vendor-tanstack';
                         if (id.includes('chart.js')) return 'vendor-charts';
                         return 'vendor';

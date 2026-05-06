@@ -1,0 +1,134 @@
+import * as React from "react";
+
+export const ServerIcon: React.FC<React.SVGProps<SVGSVGElement>> = ({ width = 56, height = 56, className}) => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={width}
+        height={height}
+        className={className}
+        viewBox="0 0 96 96"
+    >
+        <title />
+        <rect
+            height={37.02}
+            rx={4.3}
+            ry={4.3}
+            style={{
+                fill: "#575072",
+            }}
+            transform="rotate(-45 16.406 80.335)"
+            width={8.6}
+            x={12.11}
+            y={61.83}
+        />
+        <path
+            d="M29.5 87.34 9.41 67.25a4.3 4.3 0 0 0-6.08 0 4.25 4.25 0 0 0-1 1.73 4.29 4.29 0 0 1 4.36 1l20.1 20.1a4.29 4.29 0 0 1 1 4.36 4.25 4.25 0 0 0 1.73-1 4.3 4.3 0 0 0-.02-6.1"
+            style={{
+                fill: "#363354",
+            }}
+        />
+        <rect
+            height={37.02}
+            rx={4.3}
+            ry={4.3}
+            style={{
+                fill: "none",
+                stroke: "#281a3b",
+                strokeLinecap: "round",
+                strokeLinejoin: "round",
+                strokeWidth: 4,
+            }}
+            transform="rotate(-45 16.406 80.335)"
+            width={8.6}
+            x={12.11}
+            y={61.83}
+        />
+        <path
+            style={{
+                fill: "#eaeaea",
+            }}
+            transform="rotate(-45 25.54 71.22)"
+            d="M16.93 66.91h17.21v8.6H16.93z"
+        />
+        <path
+            style={{
+                fill: "none",
+                stroke: "#281a3b",
+                strokeLinecap: "round",
+                strokeLinejoin: "round",
+                strokeWidth: 4,
+            }}
+            transform="rotate(-45 25.54 71.22)"
+            d="M16.93 66.91h17.21v8.6H16.93z"
+        />
+        <path
+            d="M40.75 74.25 22.5 56l36.06-36.07a8.6 8.6 0 0 1 12.17 0L76.82 26a8.6 8.6 0 0 1 0 12.17Z"
+            style={{
+                fill: "#eaeaea",
+            }}
+        />
+        <path
+            d="m56.72 52.28-11 11a11.31 11.31 0 0 1-16 0l11 11 19-19Z"
+            style={{
+                fill: "#c2d2d3",
+            }}
+        />
+        <path
+            d="M40.75 74.25 22.5 56l36.06-36.07a8.6 8.6 0 0 1 12.17 0L76.82 26a8.6 8.6 0 0 1 0 12.17Z"
+            style={{
+                fill: "none",
+                stroke: "#281a3b",
+                strokeLinecap: "round",
+                strokeLinejoin: "round",
+                strokeWidth: 4,
+            }}
+        />
+        <path
+            d="M59.72 55.28 41.47 37l17.09-17.07a8.6 8.6 0 0 1 12.17 0L76.82 26a8.6 8.6 0 0 1 0 12.17Z"
+            style={{
+                fill: "#aae1e9",
+            }}
+        />
+        <path
+            style={{
+                fill: "none",
+                stroke: "#281a3b",
+                strokeLinecap: "round",
+                strokeLinejoin: "round",
+                strokeWidth: 4,
+            }}
+            d="M94 2.75 79.86 16.89"
+        />
+        <path
+            d="m76.82 26-6.08-6.08 3-3a4.3 4.3 0 0 1 6.08 0 4.3 4.3 0 0 1 0 6.08Z"
+            style={{
+                fill: "#eaeaea",
+            }}
+        />
+        <path
+            d="m76.82 26-6.08-6.08 3-3a4.3 4.3 0 0 1 6.08 0h0a4.3 4.3 0 0 1 0 6.08Zm-24.49.16 4.07 4.07m-9.49 1.36 6.78 6.77m-12.2-1.35 4.07 4.06m-9.49 1.36 6.78 6.77m-12.2-1.35 4.06 4.06"
+            style={{
+                fill: "none",
+                stroke: "#281a3b",
+                strokeLinecap: "round",
+                strokeLinejoin: "round",
+                strokeWidth: 4,
+            }}
+        />
+        <path
+            d="M76.82 38.19 60 55l-.41.19-.23.11-3-3 9.76-9.76a8.61 8.61 0 0 0 0-12.17l-1-1a11.31 11.31 0 0 0-16 0l9.43-9.43a8.61 8.61 0 0 1 12.17 0l6.1 6.06a8.61 8.61 0 0 1 0 12.19"
+            style={{
+                fill: "#75c9c9",
+            }}
+        />
+        <path
+            d="M76.82 38.19 60 55l-.3.3L41.47 37l7.66-7.66h0l9.43-9.43a8.61 8.61 0 0 1 12.17 0L76.82 26a8.61 8.61 0 0 1 0 12.19M57.75 20.74l6.78 6.78m-48.12 22.4 30.42 30.42"
+            style={{
+                fill: "none",
+                stroke: "#281a3b",
+                strokeLinecap: "round",
+                strokeLinejoin: "round",
+                strokeWidth: 4,
+            }}
+        />
+    </svg>)

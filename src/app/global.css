@@ -19,6 +19,8 @@
 
         --white: #FFFFFF;
         --black: #141828;
+        --black-transparent: rgba(20, 24, 40, 0.2);
+        --white-transparent: rgba(255, 255, 255, 0.3);
 
         --grey: #56627D;
         --grey-light: #f5f7fa;
@@ -48,7 +50,8 @@
 
         --white: #141828;
         --black: #FFFFFF;
-
+        --black-transparent: rgba(255, 255, 255, 0.2);
+        --white-transparent: rgba(20, 24, 40, 0.2);
         --grey: #a0aec0;
         --grey-light: #1e2436;
         --grey-lighter: #2a3145;
@@ -92,4 +95,13 @@
 
     --color-myaquamarine: var(--aquamarine);
     --color-myaquamarine-lighter: var(--aquamarine-lighter);
+}
+
+.background-blur{
+    background: var(--black-transparent);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8.8px);
+    -webkit-backdrop-filter: blur(8.8px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }

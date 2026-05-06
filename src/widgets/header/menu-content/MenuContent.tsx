@@ -118,7 +118,7 @@ const NavButtonItem = memo(({ button, theme, toggleTheme, onClick, user, isLoadi
                     <PopoverTrigger asChild>
                         {buttonContent}
                     </PopoverTrigger>
-                    <PopoverContent className="p-4 z-[105]" align="end" side={isMobile ? 'top' : 'top'}>
+                    <PopoverContent className="p-4 z-[105]" align="end" side={isMobile ? 'top' : 'bottom'}>
 
                         {isLoading ? (
                             <div className="flex flex-col space-y-2">
