@@ -1,8 +1,10 @@
 import MenuContent from "@/widgets/header/menu-content/MenuContent.tsx";
-import {Button} from "@/shared/ui/button.tsx";
-import {useCallback, useState, useEffect, useRef} from "react";
+import './Menu.scss'
+import { Button } from "@/shared/ui/button.tsx";
+import { useCallback, useState, useRef } from "react";
+import { useMenuControls } from "@/widgets/header/lib/useMenuControls.ts";
 
-export default function Menu({isMobile}: { isMobile: boolean }) {
+export default function Menu({ isMobile }: { isMobile: boolean }) {
 
     const [active, setActive] = useState<boolean>(false)
     const menuRef = useRef<HTMLDivElement>(null);
@@ -16,48 +18,28 @@ export default function Menu({isMobile}: { isMobile: boolean }) {
         setActive(false)
     }, [])
 
-    useEffect(() => {
-        const handleKeyDown = (e: KeyboardEvent) => {
-            if (e.key === 'Escape' && active) {
-                closeMenu();
-            }
-        };
+    useMenuControls({ active, closeMenu, menuRef, buttonRef });
 
-        const handleClickOutside = (e: MouseEvent) => {
-            if (active && menuRef.current && !menuRef.current.contains(e.target as Node) && buttonRef.current && !buttonRef.current.contains(e.target as Node)) {
-                closeMenu();
-            }
-        };
-
-        document.addEventListener('keydown', handleKeyDown);
-        document.addEventListener('mousedown', handleClickOutside);
-
-        return () => {
-            document.removeEventListener('keydown', handleKeyDown);
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, [active, closeMenu]);
-
-    return(
-        <header className={`menu-header  ${active ? 'active' : ''} ${isMobile ? 'mobile p-0 h-0' : 'desktop'}`}>
+    return (
+        <header className={`h-16 ${active ? 'active' : ''} ${isMobile ? 'mobile p-0 h-0' : 'desktop'}`}>
 
             {isMobile &&
                 <Button
                     ref={buttonRef}
-                    className=" navigation-button"
+                    className="absolute top-5 right-5 z-51 navigation-button"
                     onClick={handleClick}
                     name="menu-button"
                     aria-label="Toggle menu"
                 >
-                    <span className="menu-span"/>
-                    <span className="menu-span"/>
-                    <span className="menu-span"/>
+                    <span className="bg-white rounded-sm" />
+                    <span className="bg-white rounded-sm" />
+                    <span className="bg-white rounded-sm" />
                 </Button>
             }
             <div
                 key={isMobile ? 'mobile' : 'desktop'}
                 ref={menuRef}
-                className={`${isMobile ? 'mobile-menu ' : 'desktop-menu'} bg-mywhite`}
+                className={`${isMobile ? 'mobile-menu flex-colum' : 'desktop-menu'} bg-mywhite`}
             >
                 <MenuContent onClick={isMobile ? closeMenu : undefined} isMobile={isMobile} />
             </div>
