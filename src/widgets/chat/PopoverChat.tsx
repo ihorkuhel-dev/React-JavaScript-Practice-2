@@ -17,16 +17,16 @@ import type { ChatMessage, ConnectionStatus } from "./lib/useChat.ts";
 
 const ConnectionIndicator = ({ status }: { status: ConnectionStatus }) => {
     const config: Record<ConnectionStatus, { color: string; label: string }> = {
-        open:       { color: 'bg-green-400',  label: 'Connected'    },
-        connecting: { color: 'bg-yellow-400', label: 'Connecting...' },
-        closed:     { color: 'bg-gray-400',   label: 'Disconnected' },
-        error:      { color: 'bg-red-400',    label: 'Error'        },
+        open:       { color: 'bg-mygreen-darker',  label: 'Connected'    },
+        connecting: { color: 'bg-myorange-darker', label: 'Connecting...' },
+        closed:     { color: 'bg-mygrey',   label: 'Disconnected' },
+        error:      { color: 'bg-myred-darker',    label: 'Error'        },
     };
 
     const { color, label } = config[status];
 
     return (
-        <span className="flex items-center gap-1.5 text-xs text-gray-400">
+        <span className="flex items-center gap-1.5 text-xs text-mygrey">
             <span className={`inline-block w-2 h-2 rounded-full ${color}`} />
             {label}
         </span>
@@ -65,9 +65,9 @@ const TypingIndicator = () => {
     return (
         <div>
             <div className="flex items-center gap-1 bg-mygrey-lighter p-2 rounded-md w-min mr-auto">
-                <span className="w-1.5 h-1.5 rounded-full bg-gray-400 animate-bounce [animation-delay:0ms]" />
-                <span className="w-1.5 h-1.5 rounded-full bg-gray-400 animate-bounce [animation-delay:150ms]" />
-                <span className="w-1.5 h-1.5 rounded-full bg-gray-400 animate-bounce [animation-delay:300ms]" />
+                <span className="w-1.5 h-1.5 rounded-full text-mygrey animate-bounce [animation-delay:0ms]" />
+                <span className="w-1.5 h-1.5 rounded-full text-mygrey animate-bounce [animation-delay:150ms]" />
+                <span className="w-1.5 h-1.5 rounded-full text-mygrey animate-bounce [animation-delay:300ms]" />
             </div>
             <ServerIcon className="size-10 mr-auto mt-1 p-1 rounded-full bg-mygrey-lighter" />
         </div>
@@ -138,7 +138,7 @@ function PopoverChat() {
                                 onClick={clearChat}
                                 type="button"
                                 aria-label="Clear chat"
-                                className="h-8 w-8 text-gray-400 hover:text-red-500 hover:bg-red-50"
+                                className="h-8 w-8 text-mygrey hover:text-myred-darker hover:bg-myred-lighter"
                             >
                                 <Trash2 className="size-4" />
                             </Button>
