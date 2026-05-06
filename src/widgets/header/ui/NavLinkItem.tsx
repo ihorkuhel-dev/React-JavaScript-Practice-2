@@ -15,10 +15,10 @@ export const NavLinkItem = memo(({ link, onClick }: { link: INavLink, onClick?: 
     const handleClick = useCallback((e: React.MouseEvent) => {
         if (link.to === '#') {
             e.preventDefault();
-            toast.warning('This page in development' , {
+            toast.warning('This page in development', {
                 action: {
                     label: "Undo",
-                    onClick: () => {},
+                    onClick: () => { },
                 }
             });
         } else if (link.to === location.pathname) {
@@ -26,7 +26,7 @@ export const NavLinkItem = memo(({ link, onClick }: { link: INavLink, onClick?: 
             toast.error('This is the same page', {
                 action: {
                     label: "Undo",
-                    onClick: () => {},
+                    onClick: () => { },
                 }
             });
         }
@@ -37,7 +37,7 @@ export const NavLinkItem = memo(({ link, onClick }: { link: INavLink, onClick?: 
         <NavigationMenuItem>
             <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
                 <Link onClick={handleClick} to={link.to} className="header-button text-mygrey hover:text-myblack hover:bg-mygrey-light">
-                    {Icon && <Icon aria-hidden="true" color="currentColor" className="size-5"/>}
+                    {Icon && <Icon aria-hidden="true" color="currentColor" className="size-5" />}
                     {link.title}
                 </Link>
             </NavigationMenuLink>

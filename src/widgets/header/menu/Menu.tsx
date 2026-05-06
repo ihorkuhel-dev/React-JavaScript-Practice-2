@@ -1,10 +1,10 @@
 import MenuContent from "@/widgets/header/menu-content/MenuContent.tsx";
 import './Menu.scss'
-import {Button} from "@/shared/ui/button.tsx";
-import {useCallback, useState, useRef} from "react";
-import {useMenuControls} from "@/widgets/header/lib/useMenuControls.ts";
+import { Button } from "@/shared/ui/button.tsx";
+import { useCallback, useState, useRef } from "react";
+import { useMenuControls } from "@/widgets/header/lib/useMenuControls.ts";
 
-export default function Menu({isMobile}: { isMobile: boolean }) {
+export default function Menu({ isMobile }: { isMobile: boolean }) {
 
     const [active, setActive] = useState<boolean>(false)
     const menuRef = useRef<HTMLDivElement>(null);
@@ -20,8 +20,8 @@ export default function Menu({isMobile}: { isMobile: boolean }) {
 
     useMenuControls({ active, closeMenu, menuRef, buttonRef });
 
-    return(
-        <header className={`fixed w-full p-3 bg-mywhite border-mygrey-lighter border-b  z-100 ${active ? 'active' : ''} ${isMobile ? 'mobile' : 'desktop'}`}>
+    return (
+        <header className={`h-16 ${active ? 'active' : ''} ${isMobile ? 'mobile p-0 h-0' : 'desktop'}`}>
 
             {isMobile &&
                 <Button
@@ -31,15 +31,15 @@ export default function Menu({isMobile}: { isMobile: boolean }) {
                     name="menu-button"
                     aria-label="Toggle menu"
                 >
-                    <span className="bg-white rounded-sm"/>
-                    <span className="bg-white rounded-sm"/>
-                    <span className="bg-white rounded-sm"/>
+                    <span className="bg-white rounded-sm" />
+                    <span className="bg-white rounded-sm" />
+                    <span className="bg-white rounded-sm" />
                 </Button>
             }
             <div
                 key={isMobile ? 'mobile' : 'desktop'}
                 ref={menuRef}
-                className={`${isMobile ? 'mobile-menu border-l border-mygrey-lighter' : 'desktop-menu'} bg-mywhite`}
+                className={`${isMobile ? 'mobile-menu flex-colum' : 'desktop-menu'} bg-mywhite`}
             >
                 <MenuContent onClick={isMobile ? closeMenu : undefined} isMobile={isMobile} />
             </div>
