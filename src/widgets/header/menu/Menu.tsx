@@ -1,7 +1,8 @@
 import MenuContent from "@/widgets/header/menu-content/MenuContent.tsx";
 import './Menu.scss'
 import {Button} from "@/shared/ui/button.tsx";
-import {useCallback, useState, useEffect, useRef} from "react";
+import {useCallback, useState, useRef} from "react";
+import {useMenuControls} from "@/widgets/header/lib/useMenuControls.ts";
 
 export default function Menu({isMobile}: { isMobile: boolean }) {
 
@@ -17,27 +18,7 @@ export default function Menu({isMobile}: { isMobile: boolean }) {
         setActive(false)
     }, [])
 
-    useEffect(() => {
-        const handleKeyDown = (e: KeyboardEvent) => {
-            if (e.key === 'Escape' && active) {
-                closeMenu();
-            }
-        };
-
-        const handleClickOutside = (e: MouseEvent) => {
-            if (active && menuRef.current && !menuRef.current.contains(e.target as Node) && buttonRef.current && !buttonRef.current.contains(e.target as Node)) {
-                closeMenu();
-            }
-        };
-
-        document.addEventListener('keydown', handleKeyDown);
-        document.addEventListener('mousedown', handleClickOutside);
-
-        return () => {
-            document.removeEventListener('keydown', handleKeyDown);
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, [active, closeMenu]);
+    useMenuControls({ active, closeMenu, menuRef, buttonRef });
 
     return(
         <header className={`fixed w-full p-3 bg-mywhite border-mygrey-lighter border-b  z-100 ${active ? 'active' : ''} ${isMobile ? 'mobile' : 'desktop'}`}>
