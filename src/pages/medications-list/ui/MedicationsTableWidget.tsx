@@ -11,7 +11,7 @@ import ReactionBadge from "./ReactionBadge.tsx";
 import ProcessTracker from "./ProcessTracker.tsx";
 import StatusTracker from "./StatusTracker.tsx";
 import {Link} from "@tanstack/react-router";
-import { useUrlState } from "@/shared/lib/useUrlState.ts";
+import { useUrlState } from "@/shared/utils/useUrlState.ts";
 import { ArrowDownIcon, ArrowUpIcon, ArrowUpDownIcon } from "lucide-react";
 import MedicationPagination from "./MedicationPagination.tsx";
 import { Skeleton } from "@/shared/ui/skeleton.tsx";
