@@ -5,7 +5,7 @@ import {
     PaginationNext,
     PaginationPrevious
 } from "@/shared/ui/pagination.tsx";
-import { useUrlState } from "@/shared/lib/useUrlState.ts";
+import { useUrlState } from "@/shared/utils/useUrlState.ts";
 import React from "react";
 
 interface PaginationProps {
