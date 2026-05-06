@@ -10,17 +10,15 @@ import {
 import ReactionBadge from "./ReactionBadge.tsx";
 import ProcessTracker from "./ProcessTracker.tsx";
 import StatusTracker from "./StatusTracker.tsx";
-import { useNavigate } from "@tanstack/react-router";
+import {Link} from "@tanstack/react-router";
 import { useUrlState } from "@/shared/lib/useUrlState.ts";
 import { ArrowDownIcon, ArrowUpIcon, ArrowUpDownIcon } from "lucide-react";
 import MedicationPagination from "./MedicationPagination.tsx";
 import { Skeleton } from "@/shared/ui/skeleton.tsx";
 import { mapProductToTableData, type TableProduct } from "../lib/simulateData.ts";
-import { useCallback } from "react";
 
 export function MedicationsTableWidget() {
     const { searchParams, sorting, setSorting } = useUrlState();
-    const navigate = useNavigate();
 
     const queryParams = useMemo(() => {
         const limit = 30;
@@ -44,7 +42,16 @@ export function MedicationsTableWidget() {
         {
             header: 'TITLE',
             accessorKey: 'title',
-        },
+            cell: (info) => (
+                <Link
+                    to="/medications/$id"
+                    params={{ id: info.row.original.id.toString() }}
+                    className="block -my-5 -mx-4 py-5 px-4"
+
+                >
+                    {info.getValue() as string}
+                </Link>
+            )},
         {
             header: 'CATEGORY',
             accessorKey: 'category',
@@ -89,16 +96,6 @@ export function MedicationsTableWidget() {
         manualSorting: true,
     })
 
-    const handleRowClick = useCallback((e: React.MouseEvent<HTMLTableSectionElement>) => {
-        const target = e.target as HTMLElement;
-        const row = target.closest('tr');
-        if (!row) return;
-        const id = row.getAttribute('data-id');
-        if (id)
-            void navigate({ to: `/medications/${id}` });
-
-    }, [navigate]);
-
     return (
         <>
             <Table>
@@ -133,7 +130,7 @@ export function MedicationsTableWidget() {
                         </TableRow >
                     ))}
                 </TableHeader>
-                <TableBody onClick={handleRowClick}>
+                <TableBody >
                     {isLoading ? (
                         Array.from({ length: 30 }).map((_, rowIndex) => (
                             <TableRow key={rowIndex}>
@@ -146,13 +143,8 @@ export function MedicationsTableWidget() {
                         ))
                     ) : (
                         table.getRowModel().rows.map((row) => {
-                            const productId = row.original.id;
-
                             return (
-                                <TableRow key={row.id}
-                                    data-id={productId}
-                                    className="cursor-pointer"
-                                >
+                                <TableRow key={row.id}>
                                     {row.getVisibleCells().map((cell) => (
                                         <TableCell key={cell.id}>
                                             {flexRender(cell.column.columnDef.cell, cell.getContext())}

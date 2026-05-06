@@ -1,6 +1,5 @@
-import { useVanillaChart } from '@/shared/lib/useChart';
 import { memo } from 'react';
-import type { ChartConfiguration } from 'chart.js';
+import {useVanillaChart , type ChartConfiguration} from "@/pages/dashboard/lib/useChart.ts";
 
 const chartConfig: ChartConfiguration<'bar'> = {
     type: 'bar',

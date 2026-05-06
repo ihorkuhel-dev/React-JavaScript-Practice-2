@@ -1,6 +1,6 @@
-import { useVanillaChart } from '@/shared/lib/useChart';
 import type { ITotalTestsData } from '@/features/dashboard/api/mock-data';
 import { memo, useMemo } from 'react';
+import {useVanillaChart} from "@/pages/dashboard/lib/useChart.ts";
 
 interface TotalTestsChartProps {
     data: ITotalTestsData;

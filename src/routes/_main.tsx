@@ -1,6 +1,6 @@
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router'
-import { getAccessToken } from '@/shared/lib/cookies'
-import { SearchSchema } from '@/shared/lib/useUrlState.ts';
+import { getAccessToken } from '@/shared/utils/cookies'
+import { SearchSchema } from '@/shared/utils/useUrlState.ts';
 import Menu from "@/widgets/header/menu/Menu.tsx";
 import {useMediaQuery} from "@/shared/lib/useMediaQuery.tsx";
 import PopoverChat from "@/widgets/chat/PopoverChat.tsx";
