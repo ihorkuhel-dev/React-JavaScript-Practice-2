@@ -101,7 +101,7 @@ export function MedicationsTableWidget() {
 
     return (
         <>
-            <Table className="mb-20">
+            <Table>
                 <TableHeader>
                     {table.getHeaderGroups().map((headerGroup) => (
                         <TableRow key={headerGroup.id}>

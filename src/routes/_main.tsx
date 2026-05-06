@@ -21,7 +21,7 @@ function MainLayout() {
     const isMobile = useMediaQuery('(max-width: 900px)');
 
     return (
-        <div className="min-h-screen flex flex-col bg-mygrey-light ">
+        <div className="min-h-screen flex flex-col bg-mygrey-light overflow-x-hidden">
             <Menu isMobile={isMobile}/>
             <PopoverChat/>
             <main className={`flex flex-col flex-1 p-6 max-w-[1900px] w-full m-auto ${isMobile ? ' ' : 'pt-24'}`}>

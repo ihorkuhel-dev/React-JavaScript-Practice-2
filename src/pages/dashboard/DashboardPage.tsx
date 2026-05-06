@@ -34,17 +34,17 @@ export function DashboardPage() {
     }), []);
 
     return (
-        <div className="dashboardPage dashboard-page">
+        <div className="dashboard-page">
             <div className="titles-block mb-12">
                 <h1>Testing Dashboard</h1>
                 <h2>Uncover insights into your testing processes.</h2>
             </div>
-            <div className="chartBlock chart-block flex-myrow gap-7">
-                <div className="flex-colum gap-7">
-                    <div className="pb-6 border-b border-mygrey-lighter inline-flex justify-start items-start gap-11 flex-wrap">
+            <div className="chart-block flex-myrow gap-7 max-2xl:gap-4">
+                <div className="flex-colum gap-7 flex-1 min-w-0 max-2xl:gap-4">
+                    <div className="pb-6 border-b border-mygrey-lighter inline-flex justify-start items-start gap-11 flex-wrap max-lg:gap-5">
                         {chartSummaryBlocks}
                     </div>
-                    <div className="chartHeader flex items-center justify-between gap-2">
+                    <div className="flex items-center justify-between gap-2">
                         <div className="titles-block">
                             <h1>Total tests</h1>
                             <h2>Testing results received in all areas</h2>
@@ -65,7 +65,7 @@ export function DashboardPage() {
                     </div>
                     <TotalTestsChart data={total_tests_data[selectedPeriodIndex]} />
                 </div>
-                <div className="categoryGrid category-grid gap-7">
+                <div className="category-grid gap-7 flex-1 min-w-0 max-2xl:gap-4">
                     {chart_by_category.map((category) => (
                         <CategoryChart category={category} key={category.id} />
                     ))}

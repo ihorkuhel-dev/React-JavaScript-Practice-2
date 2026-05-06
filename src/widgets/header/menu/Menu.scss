@@ -6,14 +6,14 @@ header{
     height: 100% ;
   }
   .mobile-menu{
-    position: absolute;
-    right: 0;
-    top: 0;
-    z-index: 100;
+
     height: 100dvh;
     padding: 80px 20px;
     transform: translateX(150%);
     transition: transform .3s ease-in-out;
+    width: max-content;
+    position: fixed;
+    right: 0;
     & nav{
       align-items: self-start;
       &.bottom-group{
@@ -59,7 +59,7 @@ header{
     }
   }
 
-  .active {
+  &.active {
     .mobile-menu {
       transform: translateX(0);
     }

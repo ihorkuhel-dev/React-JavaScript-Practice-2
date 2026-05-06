@@ -115,7 +115,7 @@ function PopoverChat() {
     }, [isConnected]);
 
     return (
-        <div className="fixed z-100 right-5 bottom-5">
+        <div className="fixed z-99 right-5 bottom-5">
             <Popover open={isOpen} onOpenChange={setIsOpen}>
                 <PopoverTrigger asChild>
                     <Button
@@ -125,7 +125,7 @@ function PopoverChat() {
                         <ChatIcon className="size-6" color="currentColor" />
                     </Button>
                 </PopoverTrigger>
-                <PopoverContent className="border border-mygrey-lighter background-blur" align="end" side="top">
+                <PopoverContent className="bg-inherit border border-mygrey-lighter background-blur" align="end" side="top">
                     <Card className="w-80">
                         <CardHeader className="accent-block p-4  flex flex-row items-center justify-between space-y-0">
                             <div className="titles-block gap-0.5">

@@ -21,7 +21,7 @@ export default function Menu({ isMobile }: { isMobile: boolean }) {
     useMenuControls({ active, closeMenu, menuRef, buttonRef });
 
     return (
-        <header className={`h-16 ${active ? 'active' : ''} ${isMobile ? 'mobile p-0 h-0' : 'desktop'}`}>
+        <header className={`fixed top-0 left-0 z-100 bg-mywhite w-full ${active ? 'active' : ''} ${isMobile ? 'mobile p-0 h-0' : 'desktop h-16 py-2 px-4'}`}>
 
             {isMobile &&
                 <Button
@@ -39,7 +39,7 @@ export default function Menu({ isMobile }: { isMobile: boolean }) {
             <div
                 key={isMobile ? 'mobile' : 'desktop'}
                 ref={menuRef}
-                className={`${isMobile ? 'mobile-menu flex-colum' : 'desktop-menu'} bg-mywhite`}
+                className={`${isMobile ? 'mobile-menu flex-colum border-l border-mygrey-light' : 'desktop-menu'} bg-mywhite`}
             >
                 <MenuContent onClick={isMobile ? closeMenu : undefined} isMobile={isMobile} />
             </div>
