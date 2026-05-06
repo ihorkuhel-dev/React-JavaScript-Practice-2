@@ -67,7 +67,7 @@ export function MedicationInfoWidget({ productData, isLoading }: MedicationInfoW
                 </div>
             </div>
             <div className="flex-colum">
-                <h2 className="text-3xl font-semibold text-myblack">About this event</h2>
+                <h2 className="text-3xl font-semibold text-myblack max-xl:text-2xl max-md:text-xl" >About this event</h2>
                 {isLoading ? (
                     <div className="flex flex-col gap-2 mt-4">
                         <Skeleton className="h-4 w-full" />

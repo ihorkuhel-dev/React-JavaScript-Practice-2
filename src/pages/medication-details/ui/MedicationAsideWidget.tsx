@@ -24,11 +24,11 @@ export function MedicationAsideWidget({ productData, isLoading }: MedicationAsid
     return (
         <aside className='medication-aside flex-colum'>
             <div className="flex-colum">
-                <h3 className="text-2xl ">Manufacturer</h3>
+                <h3 className="medicine-title">Manufacturer</h3>
                 <p>{MEDICATION_MOCK_DATA.manufacturer}</p>
             </div>
             <div className="flex-colum">
-                <h3 className="text-2xl ">Location</h3>
+                <h3 className="medicine-title">Location</h3>
                 {isLoading ? <Skeleton className="w-full h-100" /> : <MedicationMap/>}
                 <address className="flex gap-4">
                     <p className="text-myblack">{MEDICATION_MOCK_DATA.locationAddress}</p>
@@ -50,7 +50,7 @@ export function MedicationAsideWidget({ productData, isLoading }: MedicationAsid
                 </Popover>
             </div>
             <div className="flex-colum">
-                <h3 className="text-2xl">Tags</h3>
+                <h3 className="medicine-title">Tags</h3>
                 <div className="flex gap-4 ">
                     {isLoading ? (
                         <>

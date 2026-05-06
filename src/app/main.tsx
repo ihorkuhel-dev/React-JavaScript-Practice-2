@@ -24,12 +24,16 @@ export const router = createRouter({
     scrollRestoration: true,
 })
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-      <ThemeProvider>
-          <QueryClientProvider client={queryClient}>
-              <RouterProvider router={router} />
-          </QueryClientProvider>
-      </ThemeProvider>
-  </StrictMode>,
-)
+const rootElement = document.getElementById('root')!;
+if (!rootElement.innerHTML) {
+  const root = createRoot(rootElement);
+  root.render(
+    <StrictMode>
+        <ThemeProvider>
+            <QueryClientProvider client={queryClient}>
+                <RouterProvider router={router} />
+            </QueryClientProvider>
+        </ThemeProvider>
+    </StrictMode>,
+  );
+}
