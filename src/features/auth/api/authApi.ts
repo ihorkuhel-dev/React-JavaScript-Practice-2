@@ -1,6 +1,6 @@
 import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
 import {apiClient, UnauthorizedError} from "@/shared/api/base.ts";
-import {setTokens, removeTokens} from "@/shared/lib/cookies.ts";
+import {setTokens, removeTokens} from "@/shared/utils/cookies.ts";
 import { router } from "@/app/main.tsx";
 
 

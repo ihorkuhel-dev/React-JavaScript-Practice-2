@@ -33,6 +33,8 @@ ChartJS.register(
   Filler
 );
 
+export type { ChartConfiguration };
+
 export function useVanillaChart<T extends ChartType>(config: ChartConfiguration<T>) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const chartInstance = useRef<ChartJS | null>(null);

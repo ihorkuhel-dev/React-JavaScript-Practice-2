@@ -6,7 +6,7 @@ import { ThemeToggleButton } from "@/widgets/header/ui/ThemeToggleButton.tsx";
 import { UserAvatarMenu } from "@/widgets/header/ui/UserAvatarMenu.tsx";
 import { ActionButton } from "@/widgets/header/ui/ActionButton.tsx";
 import { LogOutIcon } from "@/shared/assets/LogOutIcon.tsx";
-import { removeTokens } from "@/shared/lib/cookies.ts";
+import { removeTokens} from "@/shared/utils/cookies.ts";
 import { router } from "@/app/main.tsx";
 import { toast } from "sonner";
 import {ToolsIcon} from "@/shared/assets/ToolsIcon.tsx";

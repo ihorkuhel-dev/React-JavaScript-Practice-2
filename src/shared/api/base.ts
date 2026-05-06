@@ -1,4 +1,4 @@
-import { getAccessToken, getRefreshToken, setTokens, removeTokens } from '../lib/cookies'
+import { getAccessToken, getRefreshToken, setTokens, removeTokens } from '../utils/cookies'
 import { router } from '@/app/main.tsx'
 
 const API_URL = 'https://dummyjson.com'
@@ -89,6 +89,7 @@ export const apiClient = async <T>(endpoint: string, options: FetchOptions = {},
             await refreshPromise;
             return await apiClient<T>(endpoint, options, true);
         } catch (error) {
+            console.log(error)
             throw new UnauthorizedError();
         }
     }

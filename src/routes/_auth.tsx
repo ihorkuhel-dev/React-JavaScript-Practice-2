@@ -1,5 +1,5 @@
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router'
-import { getAccessToken } from '@/shared/lib/cookies'
+import { getAccessToken } from '@/shared/utils/cookies'
 
 export const Route = createFileRoute('/_auth')({
     beforeLoad: () => {
