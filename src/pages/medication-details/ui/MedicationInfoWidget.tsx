@@ -26,8 +26,8 @@ export function MedicationInfoWidget({ productData, isLoading }: MedicationInfoW
     }, [productData?.title, productData?.description]);
 
     return (
-        <div className="medication-info-block">
-            <div className="bg-mywhite border-mygrey-lighter base-info">
+        <div className="medication-info-block flex-colum">
+            <div className="info-block flex-colum">
                 <div>
                     {isLoading ? (
                         <>
@@ -36,29 +36,29 @@ export function MedicationInfoWidget({ productData, isLoading }: MedicationInfoW
                         </>
                     ) : (
                         <>
-                            <h1 className="text-3xl font-semibold text-myblack mb-2">{productData?.title}</h1>
-                            <p className="text-sm font-medium text-mygrey">{productData?.brand}</p>
+                            <h1 className="mb-2">{productData?.title}</h1>
+                            <p>{productData?.brand}</p>
                         </>
                     )}
                 </div>
-                <div className="card-block border-mygrey-lighter ">
-                    <div className="card">
-                        <div className="flex gap-2 items-center">
-                            <span className="bg-myaquamarine-lighter w-10 h-10 rounded-sm flex items-center justify-center">
+                <div className="card-block">
+                    <div className="card flex-colum">
+                        <div className="card-info">
+                            <span className="card-icon bg-myaquamarine-lighter">
                                 <GeoIcon color="currentColor" className="text-myaquamarine"/>
                             </span>
-                            <h3 className="text-lg font-semibold">Location</h3>
+                            <h3>Location</h3>
                         </div>
-                        <p className="text-mygrey text-sm font-medium">{MEDICATION_MOCK_DATA.locationFull}</p>
+                        <p>{MEDICATION_MOCK_DATA.locationFull}</p>
                     </div>
-                    <div className="card">
-                        <div className="flex gap-2 items-center">
-                            <span className="bg-myaquamarine-lighter w-10 h-10 rounded-sm flex items-center justify-center">
+                    <div className="card flex-colum">
+                        <div className="card-info">
+                            <span className="card-icon bg-myaquamarine-lighter">
                                 <GeoIcon color="currentColor" className="text-myaquamarine"/>
                             </span>
-                            <h3 className="text-lg font-semibold">Date & Time</h3>
+                            <h3>Date & Time</h3>
                         </div>
-                        <p className="text-mygrey text-sm font-medium">{MEDICATION_MOCK_DATA.dateTime}</p>
+                        <p>{MEDICATION_MOCK_DATA.dateTime}</p>
                     </div>
                 </div>
                 <div className="flex gap-4 max-sm:flex-col ">
@@ -66,7 +66,7 @@ export function MedicationInfoWidget({ productData, isLoading }: MedicationInfoW
                     <MedicationCalendarPopover onAdd={handleAddToCalendar} />
                 </div>
             </div>
-            <div className="about-block">
+            <div className="flex-colum">
                 <h2 className="text-3xl font-semibold text-myblack">About this event</h2>
                 {isLoading ? (
                     <div className="flex flex-col gap-2 mt-4">
@@ -75,7 +75,7 @@ export function MedicationInfoWidget({ productData, isLoading }: MedicationInfoW
                         <Skeleton className="h-4 w-4/6" />
                     </div>
                 ) : (
-                    <p className="text-sm font-medium text-mygrey">{productData?.description}</p>
+                    <p>{productData?.description}</p>
                 )}
             </div>
         </div>

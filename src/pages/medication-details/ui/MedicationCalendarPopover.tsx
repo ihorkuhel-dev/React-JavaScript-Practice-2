@@ -40,7 +40,7 @@ export const MedicationCalendarPopover = memo(function MedicationCalendarPopover
           <CalendarIcon color="currentColor" className="mr-1" /> Add to Calendar
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-auto p-0 z-[105]" align="start">
+      <PopoverContent className="w-auto p-0 z-105 bg-mywhite" align="start">
         <Card size="sm" className="mx-auto w-fit border-0 shadow-none">
           <CardContent className="p-0">
             <Calendar

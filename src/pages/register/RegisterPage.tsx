@@ -4,12 +4,14 @@ import {RegisterForm} from "@/pages/register/ui/RegisterForm.tsx";
 
 export function RegisterPage() {
     return (
-        <Card className="w-full max-w-md rounded-md ">
+        <Card className="w-full max-w-md ">
             <CardHeader className="space-y-2 text-center">
-                <CardTitle className="text-3xl font-bold">
-                    Nice to see you
+                <CardTitle>
+                    <h1>
+                        Nice to see you
+                    </h1>
                 </CardTitle>
-                <CardDescription className="text-base">
+                <CardDescription>
                     Please, provide your data to register
                 </CardDescription>
             </CardHeader>
@@ -18,16 +20,16 @@ export function RegisterPage() {
                 <RegisterForm />
             </CardContent>
 
-            <CardFooter className="flex justify-center ">
-                <div className="text-center text-sm text-secondary-text">
-                    Already have an account?{"    "}
+            <CardFooter className="flex justify-center">
+                <p>
+                    Already have an account?
                     <Link
                         to="/login"
-                        className="text-accent font-medium hover:underline"
+                        className="link-accent"
                     >
                         Sign in
                     </Link>
-                </div>
+                </p>
             </CardFooter>
         </Card>
     )

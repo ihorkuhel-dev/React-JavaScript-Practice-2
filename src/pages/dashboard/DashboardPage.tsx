@@ -11,7 +11,6 @@ import {
     SelectTrigger,
     SelectValue
 } from "@/shared/ui/select.tsx";
-import "./Dashboard.scss"
 
 
 
@@ -27,28 +26,28 @@ export function DashboardPage() {
                     <Icon className="size-14" />
                 </div>
                 <div className="flex flex-col text-left">
-                    <h3 className="text-lg font-semibold text-myblack">{item.title}</h3>
-                    <p className="text-sm text-mygrey font-medium">{item.subTitle}</p>
+                    <h3>{item.title}</h3>
+                    <p>{item.subTitle}</p>
                 </div>
             </div>
         );
     }), []);
 
     return (
-        <div className="dashboardPage">
-            <div className="flex flex-col items-start  gap-2 mb-12">
-                <h1 className="text-myblack text-2xl font-semibold">Testing Dashboard</h1>
-                <h2 className="text-mygrey text-sm">Uncover insights into your testing processes.</h2>
+        <div className="dashboardPage dashboard-page">
+            <div className="titles-block mb-12">
+                <h1>Testing Dashboard</h1>
+                <h2>Uncover insights into your testing processes.</h2>
             </div>
-            <div className="chartBlock gap-7">
-                <div className="totalChart gap-7">
-                    <div className="chartSummary pb-6 border-b border-mygrey-lighter inline-flex justify-start items-start gap-11 flex-wrap">
+            <div className="chartBlock chart-block flex-myrow gap-7">
+                <div className="flex-colum gap-7">
+                    <div className="pb-6 border-b border-mygrey-lighter inline-flex justify-start items-start gap-11 flex-wrap">
                         {chartSummaryBlocks}
                     </div>
-                    <div className="chartHeader gap-2">
-                        <div className="flex flex-col items-start gap-1">
-                            <h1 className="text-myblack text-xl font-semibold">Total tests</h1>
-                            <h2 className="text-mygrey text-sm">Testing results received in all areas</h2>
+                    <div className="chartHeader flex items-center justify-between gap-2">
+                        <div className="titles-block">
+                            <h1>Total tests</h1>
+                            <h2>Testing results received in all areas</h2>
                         </div>
                         <Select value={selectedPeriodIndex.toString()} onValueChange={handlePeriodChange}>
                             <SelectTrigger className="w-full max-w-48">
@@ -66,7 +65,7 @@ export function DashboardPage() {
                     </div>
                     <TotalTestsChart data={total_tests_data[selectedPeriodIndex]} />
                 </div>
-                <div className="categoryGrid gap-7">
+                <div className="categoryGrid category-grid gap-7">
                     {chart_by_category.map((category) => (
                         <CategoryChart category={category} key={category.id} />
                     ))}

@@ -1,5 +1,7 @@
 @import "tailwindcss";
+@import "./components.scss";
 @plugin "tailwindcss-animate";
+
 @layer base {
     :root {
         --accent-color: #3874FF;
@@ -17,6 +19,9 @@
         --red-lighter: #F8D9D6;
         --red-darker: #D63F3A;
 
+        --aquamarine: #25A7EF;
+        --aquamarine-lighter: #C7EBFF;
+
         --white: #FFFFFF;
         --black: #141828;
         --black-transparent: rgba(20, 24, 40, 0.2);
@@ -27,44 +32,56 @@
         --grey-lighter: #E0E3EB;
         --grey-dark: #E3E6ED;
         --grey-darker: #31374A;
-
-        --aquamarine: #25A7EF;
-        --aquamarine-lighter: #C7EBFF;
     }
 
     :root[data-theme='dark'] {
-        --accent-color: #5b8dff;
-        --accent-color-lighter: #1d2b4f;
+        --color-accent:  #5b8dff;
+        --color-accent-lighter:  #E5EDFF;
 
-        --green: #8fd282;
-        --green-lighter: #1a3a17;
-        --green-darker: #42bd23;
+        --color-mygreen:  #8fd282;
+        --color-mygreen-lighter:  #1a3a17;
+        --color-mygreen-darker:  #42bd23;
 
-        --orange: #eac57a;
-        --orange-lighter: #3f2f11;
-        --orange-darker: #c6782a;
+        --color-myorange:  #eac57a;
+        --color-myorange-lighter:  #3f2f11;
+        --color-myorange-darker:  #c6782a;
 
-        --red: #ea867a;
-        --red-lighter: #3f1916;
-        --red-darker: #c62f2a;
+        --color-myred:  #ea867a ;
+        --color-myred-lighter: #3f1916 ;
+        --color-myred-darker: #c62f2a ;
 
-        --white: #141828;
-        --black: #FFFFFF;
-        --black-transparent: rgba(255, 255, 255, 0.2);
-        --white-transparent: rgba(20, 24, 40, 0.2);
-        --grey: #a0aec0;
-        --grey-light: #1e2436;
-        --grey-lighter: #2a3145;
-        --grey-dark: #374151;
-        --grey-darker: #e2e8f0;
+        --color-myaquamarine:  #1995da;
+        --color-myaquamarine-lighter:  #12374f;
 
-        --aquamarine: #1995da;
-        --aquamarine-lighter: #12374f;
+        --color-mywhite:  #141828;
+        --color-myblack:  #FFFFFF;
+        --white-ransparent: rgba(20, 24, 40, 0.2);
+        --black-transparent: rgba(255, 255, 255, 0.3);
+
+        --color-mygrey:  #a0aec0;
+        --color-mygrey-light:  #1e2436;
+        --color-mygrey-lighter:  #2a3145;
+        --color-mygrey-dark:  #374151;
+        --color-mygrey-darker:  #e2e8f0;
     }
 
-    body {
-        background-color: var(--white);
-        color: var(--black);
+    h1{
+        @apply  text-3xl font-semibold;
+    }
+    h2{
+        @apply text-mygrey text-sm;
+    }
+    h3{
+        @apply font-semibold  text-lg;
+    }
+    h4{
+        @apply  font-medium
+    }
+    p{
+        @apply text-sm font-medium text-mygrey;
+    }
+    span{
+        @apply text-mygrey text-sm font-medium;
     }
 }
 
@@ -95,13 +112,11 @@
 
     --color-myaquamarine: var(--aquamarine);
     --color-myaquamarine-lighter: var(--aquamarine-lighter);
+
+    --breakpoint-l: 60rem;
 }
 
-.background-blur{
-    background: var(--black-transparent);
-    border-radius: 16px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(8.8px);
-    -webkit-backdrop-filter: blur(8.8px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+body {
+    background-color: var(--color-mywhite);
+    color: var(--color-myblack);
 }

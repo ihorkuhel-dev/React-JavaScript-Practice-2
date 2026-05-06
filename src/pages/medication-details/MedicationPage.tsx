@@ -1,7 +1,5 @@
 import {getRouteApi} from "@tanstack/react-router";
 import {useProductById} from "@/features/medicine/api/medicineApi.ts";
-
-import './MedicationPage.scss'
 import {MedicationInfoWidget} from "@/pages/medication-details/ui/MedicationInfoWidget.tsx";
 import {MedicationAsideWidget} from "@/pages/medication-details/ui/MedicationAsideWidget.tsx";
 
@@ -15,7 +13,7 @@ export function MedicationPage() {
     } = useProductById(id, true);
 
     return (
-        <div className="medication-page">
+        <div className="flex gap-6 medication-page max-l:flex-col">
             <MedicationInfoWidget productData={productData} isLoading={isLoading} />
             <MedicationAsideWidget productData={productData} isLoading={isLoading} />
         </div>

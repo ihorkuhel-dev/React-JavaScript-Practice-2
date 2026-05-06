@@ -36,13 +36,13 @@ const ConnectionIndicator = ({ status }: { status: ConnectionStatus }) => {
 const UserMessage = ({ user, isLoading, text }: { user?: User, isLoading: boolean, text: string }) => {
     return (
         <div>
-            <p className="text-right min-w-[60%] w-min ml-auto bg-mygrey-lighter p-2 rounded-md break-all">
+            <p className="text-right  ml-auto message-block">
                 {text}
             </p>
             {isLoading ? (
                 <Skeleton className="w-9 h-9 rounded-full ml-auto mt-1" />
             ) : user?.image ? (
-                <img src={user.image} alt="Avatar" className="size-10 object-fit ml-auto mt-1 p-1 rounded-full bg-mygrey-lighter" />
+                <img src={user.image} alt="Avatar" className="message-icon ml-auto" />
             ) : (
                 <Skeleton className="w-9 h-9 rounded-full ml-auto mt-1" />
             )}
@@ -53,10 +53,10 @@ const UserMessage = ({ user, isLoading, text }: { user?: User, isLoading: boolea
 const ServerMessage = ({ text }: { text: string }) => {
     return (
         <div>
-            <p className="text-left min-w-[60%] w-min mr-auto bg-mygrey-lighter p-2 rounded-md break-all">
+            <p className="text-left mr-auto message-block">
                 {text}
             </p>
-            <ServerIcon className="size-10 mr-auto mt-1 p-1 rounded-full bg-mygrey-lighter" />
+            <ServerIcon className="message-icon mr-auto" />
         </div>
     );
 };
@@ -65,11 +65,11 @@ const TypingIndicator = () => {
     return (
         <div>
             <div className="flex items-center gap-1 bg-mygrey-lighter p-2 rounded-md w-min mr-auto">
-                <span className="w-1.5 h-1.5 rounded-full text-mygrey animate-bounce [animation-delay:0ms]" />
-                <span className="w-1.5 h-1.5 rounded-full text-mygrey animate-bounce [animation-delay:150ms]" />
-                <span className="w-1.5 h-1.5 rounded-full text-mygrey animate-bounce [animation-delay:300ms]" />
+                <span className="typing-indicator [animation-delay:0ms]" />
+                <span className="typing-indicator [animation-delay:150ms]" />
+                <span className="typing-indicator [animation-delay:300ms]" />
             </div>
-            <ServerIcon className="size-10 mr-auto mt-1 p-1 rounded-full bg-mygrey-lighter" />
+            <ServerIcon className="message-icon mr-auto" />
         </div>
     );
 };
@@ -119,17 +119,17 @@ function PopoverChat() {
             <Popover open={isOpen} onOpenChange={setIsOpen}>
                 <PopoverTrigger asChild>
                     <Button
-                        className="text-white"
+                        className="text-white h-11"
                         aria-label="Open chat"
                     >
-                        <ChatIcon color="currentColor" />
+                        <ChatIcon className="size-6" color="currentColor" />
                     </Button>
                 </PopoverTrigger>
                 <PopoverContent className="border border-mygrey-lighter background-blur" align="end" side="top">
                     <Card className="w-80">
-                        <CardHeader className="bg-mywhite p-4 rounded-sm flex flex-row items-center justify-between space-y-0">
-                            <div className="flex flex-col gap-0.5">
-                                <h4 className="text-myblack font-medium">E-commerce - Tech Support</h4>
+                        <CardHeader className="accent-block p-4  flex flex-row items-center justify-between space-y-0">
+                            <div className="titles-block gap-0.5">
+                                <h4>E-commerce - Tech Support</h4>
                                 <ConnectionIndicator status={connectionStatus} />
                             </div>
                             <Button
@@ -144,7 +144,7 @@ function PopoverChat() {
                             </Button>
                         </CardHeader>
                         <CardContent className="p-0">
-                            <ScrollArea className="h-160 p-4">
+                            <ScrollArea className="h-160 max-h-[45vh] p-4">
                                 <div className="flex flex-col gap-4">
                                     {messages.map((msg: ChatMessage) => (
                                         msg.sender === 'me'
@@ -156,7 +156,7 @@ function PopoverChat() {
                                 </div>
                             </ScrollArea>
                         </CardContent>
-                        <CardFooter className="bg-mywhite rounded-sm p-0">
+                        <CardFooter className="accent-block p-0">
                             <form className="flex w-full" onSubmit={onSubmit}>
                                 <Field className="flex-1">
                                     <Input
@@ -173,7 +173,7 @@ function PopoverChat() {
                                     type="submit"
                                     aria-label="Send message"
                                     disabled={!isConnected}
-                                    className="bg-accent text-mywhite h-10 m-2 disabled:opacity-40 disabled:cursor-not-allowed"
+                                    className=" text-mywhite h-10 m-2"
                                 >
                                     <SendIcon color="currentColor" className="size-5" />
                                 </Button>

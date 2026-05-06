@@ -22,24 +22,24 @@ export function MedicationAsideWidget({ productData, isLoading }: MedicationAsid
     }, []);
 
     return (
-        <aside className='medication-aside border-mygrey-lighter'>
-            <div className="flex flex-col gap-4">
-                <h3 className="text-2xl font-semibold">Manufacturer</h3>
-                <p className="text-sm font-medium text-mygrey">{MEDICATION_MOCK_DATA.manufacturer}</p>
+        <aside className='medication-aside flex-colum'>
+            <div className="flex-colum">
+                <h3 className="text-2xl ">Manufacturer</h3>
+                <p>{MEDICATION_MOCK_DATA.manufacturer}</p>
             </div>
-            <div className="flex flex-col gap-4">
-                <h3 className="text-2xl font-semibold">Location</h3>
-                {isLoading ? <Skeleton className="w-full h-[400px]" /> : <MedicationMap/>}
+            <div className="flex-colum">
+                <h3 className="text-2xl ">Location</h3>
+                {isLoading ? <Skeleton className="w-full h-100" /> : <MedicationMap/>}
                 <address className="flex gap-4">
-                    <p className="text-sm font-medium text-myblack">{MEDICATION_MOCK_DATA.locationAddress}</p>
-                    <p className="text-sm font-medium text-mygrey">{MEDICATION_MOCK_DATA.locationCity}</p>
+                    <p className="text-myblack">{MEDICATION_MOCK_DATA.locationAddress}</p>
+                    <p>{MEDICATION_MOCK_DATA.locationCity}</p>
                 </address>
 
                 <Popover>
                     <PopoverTrigger asChild>
                         <Button variant='secondary'><DirectionIcon color="currentColor"/> Get Directions</Button>
                     </PopoverTrigger>
-                    <PopoverContent className="w-48 p-2 flex flex-col gap-1 z-[105]" align="end">
+                    <PopoverContent className="bg-mywhite p-2 flex-column gap-1 z-105" align="end">
                         <Button variant="ghost" className="justify-start w-full" onClick={() => handleOpenMap('apple')}>
                             Apple Maps
                         </Button>
@@ -49,8 +49,8 @@ export function MedicationAsideWidget({ productData, isLoading }: MedicationAsid
                     </PopoverContent>
                 </Popover>
             </div>
-            <div className="flex flex-col gap-4">
-                <h3 className="text-2xl font-semibold">Tags</h3>
+            <div className="flex-colum">
+                <h3 className="text-2xl">Tags</h3>
                 <div className="flex gap-4 ">
                     {isLoading ? (
                         <>

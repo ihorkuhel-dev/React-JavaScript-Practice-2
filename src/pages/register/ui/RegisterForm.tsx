@@ -33,7 +33,7 @@ export function RegisterForm() {
                         <FieldLabel htmlFor={field.name}>User name</FieldLabel>
                         <InputGroup>
                             <InputGroupAddon>
-                                <User className="h-4 w-4 text-muted-foreground" />
+                                <User className="input-icon" />
                             </InputGroupAddon>
                             <InputGroupInput
                                 id={field.name}
@@ -57,7 +57,7 @@ export function RegisterForm() {
 
                         <InputGroup >
                             <InputGroupAddon>
-                                <Lock className="h-4 w-4 text-muted-foreground" />
+                                <Lock className="input-icon" />
                             </InputGroupAddon>
                             <InputGroupInput
                                 id={field.name}
@@ -71,13 +71,13 @@ export function RegisterForm() {
                                 <button
                                     type="button"
                                     onClick={() => setShowPassword(!showPassword)}
-                                    className="text-muted-foreground hover:text-foreground focus:outline-none flex items-center justify-center cursor-pointer"
+                                    className="eye-button"
                                     title={showPassword ? "Show password" : "Hide password"}
                                 >
                                     {showPassword ? (
-                                        <EyeOff className="h-4 w-4 mr-2" />
+                                        <EyeOff className="input-icon mr-2" />
                                     ) : (
-                                        <Eye className="h-4 w-4 mr-2" />
+                                        <Eye className="input-icon mr-2" />
                                     )}
                                 </button>
                             </InputGroupAddon>
@@ -96,7 +96,7 @@ export function RegisterForm() {
 
                         <InputGroup >
                             <InputGroupAddon>
-                                <Lock className="h-4 w-4 text-muted-foreground" />
+                                <Lock className="input-icon" />
                             </InputGroupAddon>
                             <InputGroupInput
                                 id={field.name}
@@ -110,13 +110,13 @@ export function RegisterForm() {
                                 <button
                                     type="button"
                                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                                    className="text-muted-foreground hover:text-foreground focus:outline-none flex items-center justify-center cursor-pointer"
+                                    className="eye-button"
                                     title={showConfirmPassword ? "Show password" : "Hide password"}
                                 >
                                     {showConfirmPassword ? (
-                                        <EyeOff className="h-4 w-4 mr-2" />
+                                        <EyeOff className="input-icon mr-2" />
                                     ) : (
-                                        <Eye className="h-4 w-4 mr-2" />
+                                        <Eye className="input-icon mr-2" />
                                     )}
                                 </button>
                             </InputGroupAddon>
@@ -127,9 +127,9 @@ export function RegisterForm() {
             />
 
             {isError && (
-                <div className="text-sm text-destructive font-medium">
+                <p className="text-myred-darker">
                     {error?.message || "Registration error."}
-                </div>
+                </p>
             )}
 
             <div className="flex gap-3 pt-2 ">

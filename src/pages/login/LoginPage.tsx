@@ -11,12 +11,14 @@ import {LoginForm} from "@/pages/login/ui/LoginForm.tsx";
 
 export function LoginPage() {
     return (
-            <Card className="w-full max-w-md rounded-md ">
+            <Card className="w-full max-w-md">
                 <CardHeader className="space-y-2 text-center">
-                    <CardTitle className="text-3xl font-bold">
-                        Welcome back
+                    <CardTitle>
+                        <h1>
+                            Welcome back
+                        </h1>
                     </CardTitle>
-                    <CardDescription className="text-base">
+                    <CardDescription>
                         Please, enter to your account to continue.
                     </CardDescription>
                 </CardHeader>
@@ -25,16 +27,16 @@ export function LoginPage() {
                     <LoginForm />
                 </CardContent>
 
-                <CardFooter className="flex justify-center ">
-                    <div className="text-center text-sm text-secondary-text">
-                        Don't have an account{"    "}
+                <CardFooter className="flex justify-center">
+                    <p>
+                        Don't have an account
                         <Link
                             to="/register"
-                            className="text-accent font-medium hover:underline"
+                            className="link-accent"
                         >
                                Sign up
                         </Link>
-                    </div>
+                    </p>
                 </CardFooter>
             </Card>
     );

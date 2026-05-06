@@ -11,16 +11,16 @@ interface CategoryChartProps {
 
 export default memo(function CategoryChart({ category }: CategoryChartProps) {
     return (
-        <div className="p-4 bg-mywhite rounded-md border border-mygrey-dark inline-flex flex-col justify-start items-start gap-9">
-            <div className="card_header text-left flex gap-5 w-full">
+        <div className="p-4 min-w-0 w-full accent-block border-mygrey-dark inline-flex flex-col justify-start items-start gap-9">
+            <div className="text-left flex gap-5 w-full">
                 <div>
                     <div className="flex items-center gap-3.5">
-                        <h3 className="text-xl font-semibold text-myblack mb-1">{category.title}</h3>
+                        <h3 className="text-xl mb-1">{category.title}</h3>
                         {category.totalPercentage &&
                             <Badge variant="orange">{category.totalPercentage}</Badge>
                         }
                     </div>
-                    <p className="text-sm text-mygrey mb-4 ">{category.subTitle}</p>
+                    <p className="mb-4">{category.subTitle}</p>
                 </div>
                 {category.count &&
                     <span className="text-lg font-semibold ml-auto">{category.count}</span>
@@ -34,16 +34,16 @@ export default memo(function CategoryChart({ category }: CategoryChartProps) {
                 {category.id === 'cat-4' && <NumberOfPeopleTestedChart />}
             </div>
 
-            <div className="flex flex-col gap-1.5 w-full">
+            <div className="flex-mycol  w-full">
                 {category.data.map((dataItem) => (
                     <div key={dataItem.id} className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
                             {dataItem.className &&
-                                <div className={`w-4 h-2 rounded-sm ${dataItem.className}`}></div>
+                                <span className={`w-4 h-2 rounded-sm ${dataItem.className}`}></span>
                             }
-                            <span className="text-mygrey text-sm font-medium">{dataItem.title}</span>
+                            <span>{dataItem.title}</span>
                         </div>
-                        <span className="text-mygrey text-sm font-medium">{dataItem.value}</span>
+                        <span>{dataItem.value}</span>
                     </div>
                 ))}
             </div>

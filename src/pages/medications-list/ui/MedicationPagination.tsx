@@ -27,17 +27,17 @@ export default function MedicationPagination({ limit, total }: PaginationProps) 
     };
 
     return (
-        <Pagination className="mt-8 mb-4 justify-start bg-mywhite w-max border border-mygrey-light rounded-md fixed bottom-8 text-myblack select-none">
+        <Pagination className="accent-block w-max border fixed bottom-8 select-none">
             <PaginationContent>
                 <PaginationItem>
                     <PaginationPrevious
                         href="#"
                         onClick={(e) => handlePageChange(e, currentPage - 1)}
-                        className={`${currentPage === 1 ? "pointer-events-none opacity-50" : ""} w-28 hover:text-accent max-sm:w-10` }
+                        className={`${currentPage === 1 ? "pointer-events-none opacity-50" : ""} pagination-button` }
                     />
                 </PaginationItem>
 
-                <PaginationItem className="  ">
+                <PaginationItem>
                     {currentPage} of {totalPages}
                 </PaginationItem>
 
@@ -45,7 +45,7 @@ export default function MedicationPagination({ limit, total }: PaginationProps) 
                     <PaginationNext
                         href="#"
                         onClick={(e) => handlePageChange(e, currentPage + 1)}
-                        className={`${currentPage === totalPages ? "pointer-events-none opacity-50" : ""} w-28 hover:text-accent max-sm:w-10`}
+                        className={`${currentPage === totalPages ? "pointer-events-none opacity-50" : ""} pagination-button`}
                     />
                 </PaginationItem>
             </PaginationContent>

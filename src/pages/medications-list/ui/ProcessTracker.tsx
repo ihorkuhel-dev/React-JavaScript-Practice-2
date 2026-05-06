@@ -17,7 +17,7 @@ export default function ProcessTracker({values}: ProcessTrackerProps) {
     return(
         <div>
             <p className="mb-2">{val1} / {val2}</p>
-            <Progress title='progress' value={val1Length} className="w-[120px]" />
+            <Progress title='progress' value={val1Length} className="w-30" />
         </div>
     )
 }

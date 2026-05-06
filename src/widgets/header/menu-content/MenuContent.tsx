@@ -47,7 +47,7 @@ const NavLinkItem = memo(({ link, onClick }: { link: typeof NAV_LINK[0], onClick
     return (
         <NavigationMenuItem>
             <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                <Link onClick={handleClick} to={link.to} className="header-button text-mygrey hover:text-myblack hover:bg-mygrey-light">
+                <Link onClick={handleClick} to={link.to} className="header-button">
                     {Icon && <Icon aria-hidden="true" color="currentColor" className="size-5"/>}
                     {link.title}
                 </Link>
@@ -112,26 +112,25 @@ const NavButtonItem = memo(({ button, theme, toggleTheme, onClick, user, isLoadi
     );
 
     return (
-        <NavigationMenuItem className="text-mygrey-darker flex items-center justify-center">
+        <NavigationMenuItem className="text-mygrey-darker flex">
             {isAvatar ? (
                 <Popover >
                     <PopoverTrigger asChild>
                         {buttonContent}
                     </PopoverTrigger>
-                    <PopoverContent className="p-4 z-[105]" align="end" side={isMobile ? 'top' : 'bottom'}>
-
+                    <PopoverContent className="p-4 z-105 bg-mywhite" align="end" side={isMobile ? 'top' : 'bottom'}>
                         {isLoading ? (
                             <div className="flex flex-col space-y-2">
-                                <Skeleton className="h-4 w-[150px]" />
-                                <Skeleton className="h-3 w-[100px]" />
+                                <Skeleton className="h-4 w-37.5" />
+                                <Skeleton className="h-3 w-25" />
                             </div>
                         ) : user ? (
                             <div className="flex flex-col space-y-2">
-                                <p className="text-sm font-medium leading-none text-myblack">{user.firstName} {user.lastName}</p>
-                                <p className="text-sm text-mygrey">{user.email}</p>
+                                <p className="leading-none text-myblack">{user.firstName} {user.lastName}</p>
+                                <p>{user.email}</p>
                             </div>
                         ) : (
-                            <p className="text-sm text-mygrey">Not logged in</p>
+                            <p>Not logged in</p>
                         )}
                     </PopoverContent>
                 </Popover>
@@ -152,7 +151,7 @@ const MenuContent = memo(function MenuContent({ onClick, isMobile }: { onClick?:
         <>
             <div aria-hidden="true"></div>
 
-            <NavigationMenu className="justify-self-center">
+            <NavigationMenu className="">
                 <NavigationMenuList className="navigation-group">
                     {NAV_LINK.map(link => (
                         <NavLinkItem key={link.id} link={link} onClick={onClick} />
@@ -161,7 +160,7 @@ const MenuContent = memo(function MenuContent({ onClick, isMobile }: { onClick?:
             </NavigationMenu>
 
             <NavigationMenu className="justify-self-end bottom-group">
-                <NavigationMenuList className="navigation-group button-group" >
+                <NavigationMenuList className=" button-group" >
                     {NAV_BUTTON.map(button => (
                         <NavButtonItem key={button.id} button={button} theme={theme} toggleTheme={toggleTheme} onClick={onClick} user={user} isLoading={isLoading}  isMobile={isMobile}/>
                     ))}
