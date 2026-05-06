@@ -70,7 +70,7 @@ The project relies on the following key libraries:
    ```bash
    npm run dev
    ```
-   Once built, the application will be available in your browser at `http://localhost:5173/` (or the port provided by Vite).
+   Once built, the application will be available in your browser at `http://localhost:3000/` (or the port provided by Vite).
 
 ## Project Structure (FSD)
 The project follows this layer structure:
